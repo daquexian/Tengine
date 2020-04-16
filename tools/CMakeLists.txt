@@ -37,20 +37,23 @@ endif()
 
 if(CONFIG_BUILD_CONVERT_TOOLS OR CONFIG_BUILD_SERIALIZER)
 
-if( PROTOBUF_LIB_PATH )
-	set(PROTOBUF_LIB "-L${PROTOBUF_LIB_PATH} -lprotobuf")
-	set(PROTOBUF_CFLAGS "-I${PROTOBUF_INCLUDE_PATH}")
-else()
+# if( PROTOBUF_LIB_PATH )
+# 	set(PROTOBUF_LIB "-L${PROTOBUF_LIB_PATH} -lprotobuf")
+# 	set(PROTOBUF_CFLAGS "-I${PROTOBUF_INCLUDE_PATH}")
+# else()
 
-find_package(Protobuf 3.0.0)
-if(PROTOBUF_FOUND)
-	set(PROTOBUF_LIB ${Protobuf_LIBRARIES})
-	set(PROTOBUF_CFLAGS -I${Protobuf_INCLUDE_DIRS})
-else()
-	message(FATAL_ERROR "can not find protobuf library")
-endif()
+# find_package(Protobuf 3.0.0)
+# if(PROTOBUF_FOUND)
+# 	set(PROTOBUF_LIB protobuf::libprotobuf)
+# 	set(PROTOBUF_CFLAGS "")
+# else()
+# 	message(FATAL_ERROR "can not find protobuf library")
+# endif()
 
-endif()
+set(PROTOBUF_LIB protobuf::libprotobuf)
+set(PROTOBUF_CFLAGS "")
+
+# endif()
 
 endif()
 

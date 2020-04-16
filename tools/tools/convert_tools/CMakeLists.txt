@@ -1,14 +1,14 @@
 include_directories(${CONFIG_TENGINE_ROOT}/core/include)
 
-if(PROTOBUF_FOUND)
-	STRING(REGEX REPLACE "(.+)\\.so.*" "\\1" PROTOBUF_STATIC_LIB ${PROTOBUF_LIB})
-	set( PROTOBUF_STATIC_LIB "${PROTOBUF_STATIC_LIB}.a" )
-	message(STATUS "pb static : ${PROTOBUF_STATIC_LIB}")
-else()
-	set( PROTOBUF_STATIC_LIB ${PROTOBUF_LIB} )
-endif()
+# if(PROTOBUF_FOUND)
+# 	STRING(REGEX REPLACE "(.+)\\.so.*" "\\1" PROTOBUF_STATIC_LIB ${PROTOBUF_LIB})
+# 	set( PROTOBUF_STATIC_LIB "${PROTOBUF_STATIC_LIB}.a" )
+# 	message(STATUS "pb static : ${PROTOBUF_STATIC_LIB}")
+# else()
+# 	set( PROTOBUF_STATIC_LIB ${PROTOBUF_LIB} )
+# endif()
 
-set(STATIC_LIBS "-static -Wl,--whole-archive -lpthread -Wl,--no-whole-archive -lresolv -ldl -L${CONFIG_TENGINE_ROOT}/build ${PROTOBUF_STATIC_LIB}")
+# set(STATIC_LIBS "-static -Wl,--whole-archive -lpthread -Wl,--no-whole-archive -lresolv -ldl -L${CONFIG_TENGINE_ROOT}/build ${PROTOBUF_STATIC_LIB}")
 
 if(TENGINE_IN_BIND)
 	set(TENIGNE_STATIC_LIBS tengine-static)

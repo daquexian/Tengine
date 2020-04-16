@@ -24,18 +24,18 @@ set(tensorflow_proto_cc ${CMAKE_CURRENT_BINARY_DIR}/graph.pb.cc
 
 FILE(GLOB_RECURSE TENSORFLOW_SRCS "*.cpp")
 
-ADD_CUSTOM_COMMAND(OUTPUT ${tensorflow_proto_cc}
-     COMMAND mkdir -p ${dest_dir}
-     COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/graph.proto
-     COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/function.proto
-     COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/node_def.proto
-     COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/op_def.proto
-     COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/attr_value.proto
-     COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/tensor.proto
-     COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/tensor_shape.proto
-     COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/types.proto
-     COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/versions.proto
-     COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/resource_handle.proto)
+# ADD_CUSTOM_COMMAND(OUTPUT ${tensorflow_proto_cc}
+#      COMMAND mkdir -p ${dest_dir}
+#      COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/graph.proto
+#      COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/function.proto
+#      COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/node_def.proto
+#      COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/op_def.proto
+#      COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/attr_value.proto
+#      COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/tensor.proto
+#      COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/tensor_shape.proto
+#      COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/types.proto
+#      COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/versions.proto
+#      COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/resource_handle.proto)
 
 ADD_LIBRARY(${SERIALIZER_TARGET} SHARED ${TENSORFLOW_SRCS} ${tensorflow_proto_cc})
 

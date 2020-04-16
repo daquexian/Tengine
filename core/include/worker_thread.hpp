@@ -139,7 +139,7 @@ private:
             CPU_ZERO(&mask);
             CPU_SET(bind_cpu_, &mask);
 
-            if(sched_setaffinity(0, sizeof(mask), &mask) == 0)
+            // if(sched_setaffinity(0, sizeof(mask), &mask) == 0)
                 bind_done_ = true;
         }
 
@@ -149,7 +149,7 @@ private:
            struct sched_param sched_param;
 
            sched_param.sched_priority = 10;
-           sched_setscheduler(0, SCHED_RR, &sched_param);
+           // sched_setscheduler(0, SCHED_RR, &sched_param);
 	}
 
 	while(true)

@@ -13,10 +13,10 @@ set(dest_dir  ${CMAKE_CURRENT_BINARY_DIR})
 
 FILE(GLOB_RECURSE ONNX_SRCS "*.cpp")
 
-ADD_CUSTOM_COMMAND(OUTPUT ${onnx_proto_cc}
-                   COMMAND mkdir -p ${dest_dir}
-                   COMMAND protoc --cpp_out=${dest_dir} --proto_path=${onnx_dir} ${onnx_dir}/onnx.proto
-                   DEPENDS ${onnx_dir}/onnx.proto)
+# ADD_CUSTOM_COMMAND(OUTPUT ${onnx_proto_cc}
+#                    COMMAND mkdir -p ${dest_dir}
+#                    COMMAND protoc --cpp_out=${dest_dir} --proto_path=${onnx_dir} ${onnx_dir}/onnx.proto
+#                    DEPENDS ${onnx_dir}/onnx.proto)
 
 ADD_LIBRARY(${SERIALIZER_TARGET} SHARED ${ONNX_SRCS} ${onnx_proto_cc})
 

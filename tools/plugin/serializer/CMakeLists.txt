@@ -18,6 +18,8 @@ set(SERIALIZER_SO_VERSION 1)
 
 add_definitions(-DSERIALIZER_VERSION=${SERIALIZER_VERSION})
 
+link_libraries(protobuf::libprotobuf)
+
 if(CONFIG_CAFFE_SERIALIZER)
     add_definitions(-DCONFIG_CAFFE_SERIALIZER=1)
     add_subdirectory(caffe)

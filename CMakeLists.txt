@@ -62,6 +62,9 @@ message(STATUS "CONFIG_ARCH_X86_AVX = ${CONFIG_ARCH_X86_AVX}")
 message(STATUS "CONFIG_ARCH_ARM64 = ${CONFIG_ARCH_ARM64}")
 message(STATUS "CONFIG_ARCH_ARM32 = ${CONFIG_ARCH_ARM32}")
 
+option(protobuf_BUILD_PROTOC_BINARIES "Build libprotoc and protoc compiler" OFF)
+add_subdirectory(/home/dev/files/repos/web-model-converter/third_party/protobuf/cmake ${CMAKE_CURRENT_BINARY_DIR}/protobuf)
+
 #in face, this is related with run-time env, since API LEVEL 22 binary can run on API LEVEL 23 platform
 if(ANDROID_PLATFORM_LEVEL LESS 23)
     add_definitions(-DNO_CXA_DEMANGLE)

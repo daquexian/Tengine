@@ -14,10 +14,10 @@ set(dest_dir  ${CMAKE_CURRENT_BINARY_DIR})
 
 FILE(GLOB_RECURSE CAFFE_SRCS "*.cpp")
 
-ADD_CUSTOM_COMMAND(OUTPUT ${caffe_proto_cc}
-                   COMMAND mkdir -p ${dest_dir}
-                   COMMAND protoc --cpp_out=${dest_dir} --proto_path=${caffe_dir} ${caffe_dir}/te_caffe.proto
-                   DEPENDS ${caffe_dir}/te_caffe.proto)
+# ADD_CUSTOM_COMMAND(OUTPUT ${caffe_proto_cc}
+#                    COMMAND mkdir -p ${dest_dir}
+#                    COMMAND protoc --cpp_out=${dest_dir} --proto_path=${caffe_dir} ${caffe_dir}/te_caffe.proto
+#                    DEPENDS ${caffe_dir}/te_caffe.proto)
 
 ADD_LIBRARY(${SERIALIZER_TARGET} SHARED ${CAFFE_SRCS} ${caffe_proto_cc})
 
@@ -32,8 +32,7 @@ include_directories(${dest_dir})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${PROTOBUF_CFLAGS}")
 
-
-target_link_libraries(${SERIALIZER_TARGET} ${TENGINE_LIBRARY} ${PROTOBUF_LIB})
+target_link_libraries(${SERIALIZER_TARGET} ${TENGINE_LIBRARY} ${PROTOBUF_LIB} )
 #target_link_libraries(${SERIALIZER_TARGET} ${PROTOBUF_LIB})
 
 SET_TARGET_PROPERTIES(${SERIALIZER_TARGET} PROPERTIES VERSION ${SERIALIZER_VERSION} SOVERSION ${SERIALIZER_SO_VERSION})
@@ -44,6 +43,7 @@ install(TARGETS ${SERIALIZER_TARGET} DESTINATION lib)
 
 ADD_LIBRARY(${SERIALIZER_TARGET}-static STATIC ${CAFFE_SRCS} ${caffe_proto_cc})
 SET_TARGET_PROPERTIES(${SERIALIZER_TARGET}-static PROPERTIES OUTPUT_NAME  ${SERIALIZER_TARGET})
+target_link_libraries(${SERIALIZER_TARGET}-static ${PROTOBUF_LIB} )
 
 ADD_DEPENDENCIES(${SERIALIZER_TARGET} ${SERIALIZER_TARGET}-static)
 
