@@ -1343,7 +1343,6 @@ bool OnnxSerializerRegisterOpLoader(void)
 {
     // first get the onnx_serializer object
 
-    std::cout << "aa" << std::endl;
     SerializerPtr serializer;
 
     if(!SerializerManager::SafeGet("onnx", serializer))

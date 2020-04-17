@@ -32,7 +32,7 @@
 
 #include "tm_serializer.hpp"
 
-#define TM_FILE_MAX_SIZE 1 << 27 /* 1G */
+#define TM_FILE_MAX_SIZE 1 << 30 /* 1G */
 
 namespace TEngine {
 

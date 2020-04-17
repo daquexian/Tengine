@@ -319,8 +319,6 @@ tm_uoffset_t TmSerializer2::SaveTmSubgraph(void* const start_ptr, tm_uoffset_t* 
 
     /* Write the nodes */
     size_t vector_size = sizeof(tm_size_t) + sizeof(tm_uoffset_t) * graph->seq_nodes.size();
-    std::cout << __LINE__ << std::endl;
-    std::cout << graph->seq_nodes.size() << std::endl;
     TM2_Vector_offsets* v_nodes = ( TM2_Vector_offsets* )malloc(vector_size);
     v_nodes->v_num = graph->seq_nodes.size();
     for(unsigned int i = 0; i < graph->seq_nodes.size(); i++)
@@ -346,8 +344,6 @@ tm_uoffset_t TmSerializer2::SaveTmSubgraph(void* const start_ptr, tm_uoffset_t* 
         return 0;
     }
     v_tensors->v_num = tensor_num;
-    std::cout << __LINE__ << std::endl;
-    std::cout << tensor_num << std::endl;
     for(unsigned int i = 0; i < tensor_num; i++)
     {
         Tensor* p_tensor = tensor_ptrs[i];
@@ -767,7 +763,7 @@ bool TmSerializerRegisterOpLoader2(void)
 
     for(int i = 0; i < TM2_OPTYPE_NUM; i++)
     {
-        p_tengine->RegisterOpSaveMethod(GetOpStr(i), op_save_t(SaveTmOpFunc(i)));
+        p_tengine->RegisterOpLoadMethod(GetOpStr(i), op_save_t(SaveTmOpFunc(i)));
     }
 
     return true;
