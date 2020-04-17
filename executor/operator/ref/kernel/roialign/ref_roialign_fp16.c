@@ -21,7 +21,7 @@
  * Copyright (c) 2019, Open AI Lab
  * Author: bingzhang@openailab.com
  */
-static inline float bilinear_interpolate_fp16(__fp16* ptr, int w, int h, float x, float y)
+static inline float bilinear_interpolate_fp16(fffffp16* ptr, int w, int h, float x, float y)
 {
     int x0 = x;
     int x1 = x0 + 1;
@@ -53,7 +53,7 @@ static inline float bilinear_interpolate_fp16(__fp16* ptr, int w, int h, float x
 
     return v;
 }
-int ref_roialign_fp16(__fp16* data_in, __fp16* data_out, float* roi_ptr,int size, struct roialign_param *param  , float scale, int zero_point)
+int ref_roialign_fp16(fffffp16* data_in, fffffp16* data_out, float* roi_ptr,int size, struct roialign_param *param  , float scale, int zero_point)
 {
 /* for arm32 && x86 */
     int w = param->pooled_width;
@@ -76,8 +76,8 @@ int ref_roialign_fp16(__fp16* data_in, __fp16* data_out, float* roi_ptr,int size
     int outDataHW = param->out_height*param->out_width;
 
     for(int q = 0; q < channel; q++){
-        __fp16* ptr = data_in + q * inDataHW;
-        __fp16* outptr = data_out + q * outDataHW;
+        fffffp16* ptr = data_in + q * inDataHW;
+        fffffp16* outptr = data_out + q * outDataHW;
         for(int ph = 0; ph < h ; ph++){
             for(int pw = 0; pw < w; pw++){
                 float hstart = roi_y1 + ph * bin_size_h;

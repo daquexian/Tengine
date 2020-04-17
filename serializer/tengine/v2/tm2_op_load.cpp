@@ -97,7 +97,9 @@ bool LoadTmConvOp(StaticGraph* graph, StaticNode* node, void* const start_ptr, c
 {
     const std::string& op_str = TM2_OPSTR_CONVOLUTION;
 
+    std::cout << "hi! " << __LINE__ << std::endl;
     ConvParam param = any_cast<ConvParam>(OpManager::GetOpDefParam(op_str));
+    std::cout << "hi! " << __LINE__ << std::endl;
     const TM2_ConvParam* tm_param = GetTmPtr<TM2_ConvParam>(start_ptr, tm_op->offset_t_param);
 
     param.kernel_h = tm_param->kernel_h;

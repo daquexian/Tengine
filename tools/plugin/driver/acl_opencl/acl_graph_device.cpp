@@ -148,7 +148,7 @@ void copy_from_itensor_with_permuteNHWCTONCHW(CLTensor* cl_tensor, void* buf, in
     {
         assert(data_type == DataType::F16);
 
-        __fp16* pf16DataInput;
+        fffffp16* pf16DataInput;
 
         for(int z = 0; z < n; z++)
         {
@@ -162,7 +162,7 @@ void copy_from_itensor_with_permuteNHWCTONCHW(CLTensor* cl_tensor, void* buf, in
                 {
                     pu8RowInputData = pu8SliceAddr_h_ele + offsetSize + j * strides[1];
 
-                    pf16DataInput = ( __fp16* )pu8RowInputData;
+                    pf16DataInput = ( fffffp16* )pu8RowInputData;
                     float* pf32RowStartAddr = pf32OutStartAddr1 + j;
                     for(int k = 0; k < c; k++)
                     {

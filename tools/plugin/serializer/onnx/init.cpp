@@ -35,6 +35,7 @@ using namespace TEngine;
 
 extern "C" int onnx_plugin_init(void)
 {
+    std::cout << "hhhh" << std::endl;
     auto factory = SerializerFactory::GetFactory();
 
     factory->RegisterInterface<OnnxSerializer>("onnx");

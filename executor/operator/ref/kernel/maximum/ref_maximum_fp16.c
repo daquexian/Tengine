@@ -22,7 +22,7 @@
  * Author: bhu@openailab.com
  */
 
-int ref_maximum_fp16(__fp16* data_a, __fp16* data_b, __fp16* output, int size, struct maximum_param* param)
+int ref_maximum_fp16(fffffp16* data_a, fffffp16* data_b, fffffp16* output, int size, struct maximum_param* param)
 {
     /*
         for(int i = 0; i < size; i++)

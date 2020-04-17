@@ -1,6 +1,6 @@
 #include "ref_rpn_kernel.h"
 
-static inline void bbox_tranform_inv_fp16(__fp16* m_box, float* local_anchors, struct rpn_param* param)
+static inline void bbox_tranform_inv_fp16(fffffp16* m_box, float* local_anchors, struct rpn_param* param)
 {
     int feat_size = param->feat_height * param->feat_width;
     int c_4 = param->feat_chan / 4;
@@ -25,7 +25,7 @@ static inline void bbox_tranform_inv_fp16(__fp16* m_box, float* local_anchors, s
     }
 }
 
-static inline void ref_filter_boxes_fp16(struct RPN_Box* boxes, const __fp16* featmap, const __fp16* score,
+static inline void ref_filter_boxes_fp16(struct RPN_Box* boxes, const fffffp16* featmap, const fffffp16* score,
                                          int* num_boxes, struct rpn_param* param)
 {
     float local_minsize = param->min_size * param->src_scale;
@@ -72,7 +72,7 @@ static inline void ref_filter_boxes_fp16(struct RPN_Box* boxes, const __fp16* fe
     *num_boxes = num;
 }
 
-int ref_rpn_fp16(const __fp16* score, __fp16* featmap, float* anchors, __fp16* output, struct rpn_param* param)
+int ref_rpn_fp16(const fffffp16* score, fffffp16* featmap, float* anchors, fffffp16* output, struct rpn_param* param)
 {
     if(score == nullptr || featmap == nullptr || anchors == nullptr || output == nullptr)
         return false;
@@ -103,7 +103,7 @@ int ref_rpn_fp16(const __fp16* score, __fp16* featmap, float* anchors, __fp16* o
 
     for(int i = 0; i < num_boxes; i++)
     {
-        __fp16* outptr = output + i * 4;
+        fffffp16* outptr = output + i * 4;
         outptr[0] = fp32_to_fp16(boxes[i].x0);
         outptr[1] = fp32_to_fp16(boxes[i].y0);
         outptr[2] = fp32_to_fp16(boxes[i].x1);

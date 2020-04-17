@@ -1,6 +1,6 @@
 
 
-int ref_sigmoid_fp16(__fp16* data, __fp16* out_data, int size, sigmoid_param* param)
+int ref_sigmoid_fp16(fffffp16* data, fffffp16* out_data, int size, sigmoid_param* param)
 {
     for(int i = 0; i < size; i++)
     {

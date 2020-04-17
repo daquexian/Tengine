@@ -22,7 +22,7 @@
  * Author: jingyou@openailab.com
  */
 
-static int ref_region_fp16(const __fp16* in_data, __fp16* out_data, ref_region_param* param)
+static int ref_region_fp16(const fffffp16* in_data, fffffp16* out_data, ref_region_param* param)
 {
     int input_size = param->dims[0] * param->dims[1] * param->dims[2] * param->dims[3];
     float* input_f = ( float* )malloc(input_size * sizeof(float));

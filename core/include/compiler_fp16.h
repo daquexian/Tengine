@@ -39,7 +39,7 @@ extern "C" {
 
 #define fp32_to_fp16(data) \
     ({                     \
-        ffp16 f = data;   \
+        fffffp16 f = data;   \
         f;                 \
     })
 
@@ -59,9 +59,9 @@ struct fp32_pack
     unsigned char sign : 1;
 } __attribute__((packed));
 
-typedef struct fp16_pack ffp16;
+typedef struct fp16_pack fffffp16;
 
-static inline float fp16_to_fp32(ffp16 data)
+static inline float fp16_to_fp32(fffffp16 data)
 {
     float f;
     struct fp32_pack* fp32 = ( struct fp32_pack* )&f;
@@ -93,7 +93,7 @@ static inline float fp16_to_fp32(ffp16 data)
     return f;
 }
 
-static inline ffp16 fp32_to_fp16(float data)
+static inline fffffp16 fp32_to_fp16(float data)
 {
     struct fp32_pack* fp32 = ( struct fp32_pack* )&data;
     struct fp16_pack fp16;

@@ -22,7 +22,7 @@
  * Author: jingyou@openailab.com
  */
 
-static int ref_lrn_fp16(const __fp16* in_data, __fp16* out_data, ref_lrn_param* param)
+static int ref_lrn_fp16(const fffffp16* in_data, fffffp16* out_data, ref_lrn_param* param)
 {
     int n = param->dims[0];
     int c = param->dims[1];
@@ -42,7 +42,7 @@ static int ref_lrn_fp16(const __fp16* in_data, __fp16* out_data, ref_lrn_param* 
 
     for(int i = 0; i < n; i++)
     {
-        const __fp16* img_base = in_data + i * img_size;
+        const fffffp16* img_base = in_data + i * img_size;
 
         /* get square value */
         for(int j = 0; j < img_size; j++)

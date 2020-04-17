@@ -22,7 +22,7 @@
  * Author: zpluo@openailab.com
  */
 
-int ref_l2pool_fp16(__fp16* data,__fp16* out_data,l2pool_param* param)
+int ref_l2pool_fp16(fffffp16* data,fffffp16* out_data,l2pool_param* param)
 {
 /* for arm32 && x86 */
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8

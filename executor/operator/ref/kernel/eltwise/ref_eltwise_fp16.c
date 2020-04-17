@@ -1,5 +1,5 @@
-void elt_prod_fp16(int input_hw, int input_hw_1, int input_count4, int input1_count4, __fp16* input0, __fp16* input1,
-                   eltwise_param* param, __fp16* output)
+void elt_prod_fp16(int input_hw, int input_hw_1, int input_count4, int input1_count4, fffffp16* input0, fffffp16* input1,
+                   eltwise_param* param, fffffp16* output)
 {
     if(input1_count4 == 1)
     {
@@ -64,8 +64,8 @@ void elt_prod_fp16(int input_hw, int input_hw_1, int input_count4, int input1_co
     }
     return;
 }
-void elt_sum_fp16(int input_hw, int input_hw_1, int input_count4, int input1_count4, __fp16* input0, __fp16* input1,
-                  eltwise_param* param, __fp16* output)
+void elt_sum_fp16(int input_hw, int input_hw_1, int input_count4, int input1_count4, fffffp16* input0, fffffp16* input1,
+                  eltwise_param* param, fffffp16* output)
 {
     if(input1_count4 == 1)
     {
@@ -131,8 +131,8 @@ void elt_sum_fp16(int input_hw, int input_hw_1, int input_count4, int input1_cou
     return;
 }
 
-void elt_sub_fp16(int input_hw, int input_hw_1, int input_count4, int input1_count4, __fp16* input0, __fp16* input1,
-                  eltwise_param* param, __fp16* output)
+void elt_sub_fp16(int input_hw, int input_hw_1, int input_count4, int input1_count4, fffffp16* input0, fffffp16* input1,
+                  eltwise_param* param, fffffp16* output)
 {
     if(input1_count4 == 1)
     {
@@ -197,8 +197,8 @@ void elt_sub_fp16(int input_hw, int input_hw_1, int input_count4, int input1_cou
     }
     return;
 }
-void elt_divid_fp16(int input_hw, int input_hw_1, int input_count4, int input1_count4, __fp16* input0, __fp16* input1,
-                    eltwise_param* param, __fp16* output)
+void elt_divid_fp16(int input_hw, int input_hw_1, int input_count4, int input1_count4, fffffp16* input0, fffffp16* input1,
+                    eltwise_param* param, fffffp16* output)
 {
     if(input1_count4 == 1)
     {
@@ -263,8 +263,8 @@ void elt_divid_fp16(int input_hw, int input_hw_1, int input_count4, int input1_c
     }
     return;
 }
-void elt_pow_fp16(int input_hw, int input_hw_1, int input_count4, int input1_count4, __fp16* input0, __fp16* input1,
-                  eltwise_param* param, __fp16* output)
+void elt_pow_fp16(int input_hw, int input_hw_1, int input_count4, int input1_count4, fffffp16* input0, fffffp16* input1,
+                  eltwise_param* param, fffffp16* output)
 {
     if(input1_count4 == 1)
     {
@@ -295,7 +295,7 @@ void elt_pow_fp16(int input_hw, int input_hw_1, int input_count4, int input1_cou
     return;
 }
 
-static int ref_eltwise_fp16(__fp16* input0, __fp16* input1, __fp16* output, eltwise_param* param)
+static int ref_eltwise_fp16(fffffp16* input0, fffffp16* input1, fffffp16* output, eltwise_param* param)
 {
     int input_hw = param->shape0[2] * param->shape0[3];
     int input_hw_1 = param->shape1[2] * param->shape1[3];

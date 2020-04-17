@@ -1,10 +1,10 @@
-void get_boxes_fp16(std::vector<Box>& boxes, int num_prior, const __fp16* loc_ptr, const __fp16* prior_ptr)
+void get_boxes_fp16(std::vector<Box>& boxes, int num_prior, const fffffp16* loc_ptr, const fffffp16* prior_ptr)
 {
     for(int i = 0; i < num_prior; i++)
     {
-        const __fp16* loc = loc_ptr + i * 4;
-        const __fp16* pbox = prior_ptr + i * 4;
-        const __fp16* pvar = pbox + num_prior * 4;
+        const fffffp16* loc = loc_ptr + i * 4;
+        const fffffp16* pbox = prior_ptr + i * 4;
+        const fffffp16* pvar = pbox + num_prior * 4;
         // pbox [xmin,ymin,xmax,ymax]
         float pbox_w = fp16_to_fp32(pbox[2]) - fp16_to_fp32(pbox[0]);
         float pbox_h = fp16_to_fp32(pbox[3]) - fp16_to_fp32(pbox[1]);
@@ -73,16 +73,16 @@ void nms_sorted_bboxes_fp16(const std::vector<Box>& bboxes, std::vector<int>& pi
     }
 }
 
-int ref_DetectionOutput_fp16(const __fp16* location, const __fp16* confidence, const __fp16* priorbox,
+int ref_DetectionOutput_fp16(const fffffp16* location, const fffffp16* confidence, const fffffp16* priorbox,
                              std::vector<int> dims, ddo_param* param_)
 {
     const int num_priorx4 = dims[2];
     const int num_prior = num_priorx4 / 4;
     const int num_classes = param_->num_classes;
 
-    const __fp16* loc_ptr = location;
-    const __fp16* conf_ptr = confidence;
-    const __fp16* prior_ptr = priorbox;
+    const fffffp16* loc_ptr = location;
+    const fffffp16* conf_ptr = confidence;
+    const fffffp16* prior_ptr = priorbox;
 
     std::vector<Box> boxes(num_prior);
     get_boxes_fp16(boxes, num_prior, loc_ptr, prior_ptr);

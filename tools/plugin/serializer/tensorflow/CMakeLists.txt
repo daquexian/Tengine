@@ -10,17 +10,18 @@ endif()
 set(SERIALIZER_TARGET tensorflow-serializer)
 set(tensorflow_dir ${CMAKE_CURRENT_SOURCE_DIR})
 set(dest_dir  ${CMAKE_CURRENT_BINARY_DIR})
-set(tensorflow_proto_cc ${CMAKE_CURRENT_BINARY_DIR}/graph.pb.cc
-                        ${CMAKE_CURRENT_BINARY_DIR}/function.pb.cc
-                        ${CMAKE_CURRENT_BINARY_DIR}/node_def.pb.cc
-                        ${CMAKE_CURRENT_BINARY_DIR}/op_def.pb.cc
-                        ${CMAKE_CURRENT_BINARY_DIR}/attr_value.pb.cc
-                        ${CMAKE_CURRENT_BINARY_DIR}/tensor.pb.cc
-                        ${CMAKE_CURRENT_BINARY_DIR}/tensor_shape.pb.cc
-                        ${CMAKE_CURRENT_BINARY_DIR}/types.pb.cc
-                        ${CMAKE_CURRENT_BINARY_DIR}/versions.pb.cc
-                        ${CMAKE_CURRENT_BINARY_DIR}/resource_handle.pb.cc)
+set(tensorflow_proto ${CMAKE_CURRENT_BINARY_DIR}/graph.proto
+                        ${CMAKE_CURRENT_BINARY_DIR}/function.proto
+                        ${CMAKE_CURRENT_BINARY_DIR}/node_def.proto
+                        ${CMAKE_CURRENT_BINARY_DIR}/op_def.proto
+                        ${CMAKE_CURRENT_BINARY_DIR}/attr_value.proto
+                        ${CMAKE_CURRENT_BINARY_DIR}/tensor.proto
+                        ${CMAKE_CURRENT_BINARY_DIR}/tensor_shape.proto
+                        ${CMAKE_CURRENT_BINARY_DIR}/types.proto
+                        ${CMAKE_CURRENT_BINARY_DIR}/versions.proto
+                        ${CMAKE_CURRENT_BINARY_DIR}/resource_handle.proto)
 
+protobuf_generate_cpp(tensorflow_proto_cc proto_hdrs ${tensorflow_proto})
 
 FILE(GLOB_RECURSE TENSORFLOW_SRCS "*.cpp")
 
@@ -38,10 +39,6 @@ FILE(GLOB_RECURSE TENSORFLOW_SRCS "*.cpp")
 #      COMMAND protoc --cpp_out=${dest_dir} --proto_path=${tensorflow_dir} ${tensorflow_dir}/resource_handle.proto)
 
 ADD_LIBRARY(${SERIALIZER_TARGET} SHARED ${TENSORFLOW_SRCS} ${tensorflow_proto_cc})
-
-ADD_CUSTOM_TARGET(tensorflow_proto_target DEPENDS ${tensorflow_proto_cc})
-
-ADD_DEPENDENCIES(${SERIALIZER_TARGET} tensorflow_proto_target)
 
 include_directories(${dest_dir})
 

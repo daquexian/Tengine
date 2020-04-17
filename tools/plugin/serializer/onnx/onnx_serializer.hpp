@@ -33,7 +33,7 @@
 #include "static_graph_interface.hpp"
 
 #include "logger.hpp"
-#include "onnx.pb.h"
+#include "onnx/onnx_pb.h"
 
 namespace TEngine {
 
@@ -55,6 +55,8 @@ public:
     }
 
     bool LoadModel(const std::vector<std::string>& file_list, StaticGraph* graph) override;
+    bool LoadModel(const std::vector<const void*>& addr_list, const std::vector<int>& size_list,
+                           StaticGraph* static_graph, bool transfer_mem = false) override;
 
     bool LoadConstTensor(const std::string& fname, StaticTensor* const_tensor) override
     {

@@ -22,33 +22,33 @@
  * Author: jjzeng@openailab.com
  */
 
-static void __hwc_fp16(const __fp16* input, __fp16* output, int hh, int ww, int cc, int wc, int hw)
+static void __hwc_fp16(const fffffp16* input, fffffp16* output, int hh, int ww, int cc, int wc, int hw)
 {
     for(int h = 0; h < hh; ++h)
     {
-        __fp16* out_ptr = output + h * wc;
+        fffffp16* out_ptr = output + h * wc;
 
         for(int w = 0; w < ww; ++w)
         {
             for(int c = 0; c < cc; ++c)
             {
-                const __fp16* in_ptr = input + c * hw + h * ww;
+                const fffffp16* in_ptr = input + c * hw + h * ww;
                 out_ptr[w * cc + c] = in_ptr[w];
             }
         }
     }
 }
 
-static void __chw_fp16(const __fp16* input, __fp16* output, int hh, int ww, int cc, int wc, int hw)
+static void __chw_fp16(const fffffp16* input, fffffp16* output, int hh, int ww, int cc, int wc, int hw)
 {
     for(int c = 0; c < cc; ++c)
     {
-        __fp16* output_ptr = output + c * hw;    // chw
+        fffffp16* output_ptr = output + c * hw;    // chw
         for(int h = 0; h < hh; ++h)
         {
             for(int w = 0; w < ww; ++w)
             {
-                const __fp16* input_ptr = input + h * wc + w * cc;    // input hwc + wc
+                const fffffp16* input_ptr = input + h * wc + w * cc;    // input hwc + wc
                 // hw + w = input_ptr[c]
                 output_ptr[h * ww + w] = input_ptr[c];
             }
@@ -56,7 +56,7 @@ static void __chw_fp16(const __fp16* input, __fp16* output, int hh, int ww, int 
     }
 }
 
-static int ref_permute_fp16(const __fp16* in_data, __fp16* out_data, const permute_param* param)
+static int ref_permute_fp16(const fffffp16* in_data, fffffp16* out_data, const permute_param* param)
 {
     int n;
     int c;
@@ -81,8 +81,8 @@ static int ref_permute_fp16(const __fp16* in_data, __fp16* out_data, const permu
     int hw = h * w;
     int chw = c * hw;
 
-    const __fp16* input = in_data;
-    __fp16* output = out_data;
+    const fffffp16* input = in_data;
+    fffffp16* output = out_data;
     if(param->order0 == 0 && param->order1 == 2 && param->order2 == 3 && param->order3 == 1)
     {
         for(int ii = 0; ii < n; ++ii)

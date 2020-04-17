@@ -22,7 +22,7 @@
  * Author: bingzhang@openailab.com
  */
 
-static int ref_spaceToBatchND_fp16(const __fp16* in_data, __fp16* out_data, struct spaceToBatchND_param* param)
+static int ref_spaceToBatchND_fp16(const fffffp16* in_data, fffffp16* out_data, struct spaceToBatchND_param* param)
 {
     /*
     int pad_value = 0;
@@ -34,26 +34,26 @@ static int ref_spaceToBatchND_fp16(const __fp16* in_data, __fp16* out_data, stru
         for(int out_h = 0; out_h < param->out_dims[1]; ++out_h){
             for(int out_w = 0; out_w < param->out_dims[2]; ++out_w){
                 int index = out_b * param->out_dims[1] * param->out_dims[2] * param->out_dims[3] + out_h * param->out_dims[2] * param->out_dims[3] + out_w * param->out_dims[3] + param->out_dims[3];
-                __fp16* out = out_data + index;
+                fffffp16* out = out_data + index;
                 if( (out_h * param->dilation_y + shift_h < param->pad_top) || (out_h * param->dilation_y + shift_h >= param->pad_top + param->in_dims[1])
                     || (out_w * param->dilation_x + shift_w < param->pad_left) || (out_w *param->dilation_x + shift_w  >= param->pad_left + param->in_dims[2]) )
                 {
-                    memset(out, pad_value, param->out_dims[3]*sizeof(__fp16));
+                    memset(out, pad_value, param->out_dims[3]*sizeof(fffffp16));
                 }
                 else
                 {
                     int index_h = out_h * param->dilation_y + shift_h - param->pad_top;
                     int index_w = out_w * param->dilation_x + shift_w - param->pad_left;
                     int index = input_batch * param->in_dims[1] * param->in_dims[2] * param->in_dims[3] + index_h * param->in_dims[2] * param->in_dims[3] + index_w * param->in_dims[3] + param->in_dims[3];
-                    const __fp16* in = in_data + index;
-                    memcpy(out, in, param->out_dims[3]*sizeof(__fp16));
+                    const fffffp16* in = in_data + index;
+                    memcpy(out, in, param->out_dims[3]*sizeof(fffffp16));
                 }
             }
         }
     }
     */
 
-        __fp16* output_ptr = out_data;
+        fffffp16* output_ptr = out_data;
         int output_batch_size = param->out_dims[0];
         int input_batch_size = param->in_dims[0];
 
@@ -83,21 +83,21 @@ static int ref_spaceToBatchND_fp16(const __fp16* in_data, __fp16* out_data, stru
             int shift_h = (out_b / input_batch_size) / block_shape_width;
             for (int out_h = 0; out_h < output_height; ++out_h) {
                 for (int out_w = 0; out_w < output_width; ++out_w) {
-                    __fp16 * out = output_ptr + out_b*out_stride_height + out_h*out_stride_width + out_w*out_stride_depth;
+                    fffffp16 * out = output_ptr + out_b*out_stride_height + out_h*out_stride_width + out_w*out_stride_depth;
                     if (out_h * block_shape_height + shift_h < padding_top ||
                         out_h * block_shape_height + shift_h >=
                         padding_top + input_height ||
                         out_w * block_shape_width + shift_w < padding_left ||
                         out_w * block_shape_width + shift_w >= padding_left + input_width) {
                         // This may not execute correctly when pad_value != 0 and T != uint8.
-                        memset(out,0, depth * sizeof(__fp16));
+                        memset(out,0, depth * sizeof(fffffp16));
                     } 
                     else 
                     {
-                        const __fp16 * in = in_data + input_batch*in_stride_height +
+                        const fffffp16 * in = in_data + input_batch*in_stride_height +
                             ((out_h * block_shape_height + shift_h) - padding_top)*in_stride_width +
                             ((out_w * block_shape_width + shift_w) - padding_left)*in_stride_depth;
-                            memcpy(out, in, depth * sizeof(__fp16));
+                            memcpy(out, in, depth * sizeof(fffffp16));
                     }
                 }
             }

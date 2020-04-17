@@ -65,6 +65,7 @@ public:
     {
         return false;
     }
+    static bool Init();
 };
 
 using TmSerializerPtr = std::shared_ptr<TmSerializer>;

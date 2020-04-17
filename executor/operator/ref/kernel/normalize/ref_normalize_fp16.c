@@ -1,5 +1,5 @@
 
-static int ref_normalize_fp16(__fp16* input, __fp16* output, __fp16* scale, const ref_normalize_param* param)
+static int ref_normalize_fp16(fffffp16* input, fffffp16* output, fffffp16* scale, const ref_normalize_param* param)
 {
     int batch_num = param->input_n;
     int in_h = param->input_h;
@@ -9,8 +9,8 @@ static int ref_normalize_fp16(__fp16* input, __fp16* output, __fp16* scale, cons
     int out_offset = 0;
 
     float* buff = ( float* )malloc(sizeof(float) * in_h * in_w);
-    __fp16* in_buf = input;
-    __fp16* out_buf = output;
+    fffffp16* in_buf = input;
+    fffffp16* out_buf = output;
 
     for(int n = 0; n < batch_num; ++n)
     {
@@ -33,7 +33,7 @@ static int ref_normalize_fp16(__fp16* input, __fp16* output, __fp16* scale, cons
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
                     float data = fp16_to_fp32(in_buf[in_offset]);
 #else
-                    __fp16 data = in_buf[in_offset];
+                    fffffp16 data = in_buf[in_offset];
 #endif
                     buff[buff_idx] += data * data;
                 }
@@ -60,7 +60,7 @@ static int ref_normalize_fp16(__fp16* input, __fp16* output, __fp16* scale, cons
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
                     float in_data = fp16_to_fp32(in_buf[in_offset]);
 #else
-                    __fp16 in_data = in_buf[in_offset];
+                    fffffp16 in_data = in_buf[in_offset];
 #endif
                     float data = buff[buff_idx];
 
@@ -70,7 +70,7 @@ static int ref_normalize_fp16(__fp16* input, __fp16* output, __fp16* scale, cons
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
                         float scale_data = fp16_to_fp32(scale[c]);
 #else
-                        __fp16 scale_data = scale[c];
+                        fffffp16 scale_data = scale[c];
 #endif
 
                         out_data = out_data * scale_data;
@@ -79,7 +79,7 @@ static int ref_normalize_fp16(__fp16* input, __fp16* output, __fp16* scale, cons
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
                     out_buf[out_offset] = fp32_to_fp16(out_data);
 #else
-                    out_buf[out_offset] = ( __fp16 )out_data;
+                    out_buf[out_offset] = ( fffffp16 )out_data;
 #endif
                 }
             }

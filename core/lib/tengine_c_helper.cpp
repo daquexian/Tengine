@@ -208,8 +208,12 @@ static int real_vload_model(context_t exec_context, const char* model_name, cons
 
     va_end(argp);
 
-    if(!StaticGraphManager::Add(std::string(model_name), StaticGraphPtr(static_graph)))
+    std::cout << __FILE__ << " " <<  __LINE__ << std::endl;
+    auto tmp = StaticGraphManager::Add(std::string(model_name), StaticGraphPtr(static_graph));
+    if(!tmp)
     {
+        std::cout << __FILE__ << " " <<  __LINE__ << std::endl;
+        std::cout << "!!!!!" << std::endl;
         XLOG_ERROR() << "replicated model name detected: " << model_name << " should not happen\n";
         set_tengine_errno(EBADSLT);
         return -1;
@@ -462,6 +466,12 @@ int hclcpu_plugin_init(bool ignore_failure)
     }
 
     return 0;
+}
+
+int InitPluginForConverter() {
+    operator_plugin_init();
+    serializer_plugin_init();
+    executor_plugin_init();
 }
 
 int InitAllPlugin(void)

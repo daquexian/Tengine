@@ -1,46 +1,46 @@
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
-void sum_4d_ax0_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp);
-void sum_4d_ax1_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp);
-void sum_4d_ax2_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp);
-void sum_4d_ax3_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp);
+void sum_4d_ax0_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp);
+void sum_4d_ax1_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp);
+void sum_4d_ax2_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp);
+void sum_4d_ax3_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp);
 void sum_3d_ax0_fp16(int dim1, int dim2, int dim3, float* tmp, float* tmp_01);
 void sum_3d_ax1_fp16(int dim1, int dim2, int dim3, float* tmp, float* tmp_02);
 void sum_3d_ax2_fp16(int dim1, int dim2, int dim3, float* tmp, float* tmp_03);
 void sum_2d_ax0_fp16(int dim1, int dim2, float* tmp, float* tmp_0);
 void sum_2d_ax1_fp16(int dim1, int dim2, float* tmp, float* tmp_1);
 
-void mean_4d_ax0_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp);
-void mean_4d_ax1_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp);
-void mean_4d_ax2_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp);
-void mean_4d_ax3_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp);
+void mean_4d_ax0_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp);
+void mean_4d_ax1_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp);
+void mean_4d_ax2_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp);
+void mean_4d_ax3_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp);
 void mean_3d_ax0_fp16(int dim1, int dim2, int dim3, float* tmp, float* tmp_01);
 void mean_3d_ax1_fp16(int dim1, int dim2, int dim3, float* tmp, float* tmp_02);
 void mean_3d_ax2_fp16(int dim1, int dim2, int dim3, float* tmp, float* tmp_03);
 void mean_2d_ax0_fp16(int dim1, int dim2, float* tmp, float* tmp_0);
 void mean_2d_ax1_fp16(int dim1, int dim2, float* tmp, float* tmp_1);
 #else
-void sum_4d_ax0_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp);
-void sum_4d_ax1_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp);
-void sum_4d_ax2_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp);
-void sum_4d_ax3_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp);
-void sum_3d_ax0_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_01);
-void sum_3d_ax1_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_02);
-void sum_3d_ax2_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_03);
-void sum_2d_ax0_f16(int dim1, int dim2, __fp16* tmp, __fp16* tmp_0);
-void sum_2d_ax1_f16(int dim1, int dim2, __fp16* tmp, __fp16* tmp_1);
+void sum_4d_ax0_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp);
+void sum_4d_ax1_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp);
+void sum_4d_ax2_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp);
+void sum_4d_ax3_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp);
+void sum_3d_ax0_f16(int dim1, int dim2, int dim3, fffffp16* tmp, fffffp16* tmp_01);
+void sum_3d_ax1_f16(int dim1, int dim2, int dim3, fffffp16* tmp, fffffp16* tmp_02);
+void sum_3d_ax2_f16(int dim1, int dim2, int dim3, fffffp16* tmp, fffffp16* tmp_03);
+void sum_2d_ax0_f16(int dim1, int dim2, fffffp16* tmp, fffffp16* tmp_0);
+void sum_2d_ax1_f16(int dim1, int dim2, fffffp16* tmp, fffffp16* tmp_1);
 
-void mean_4d_ax0_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp);
-void mean_4d_ax1_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp);
-void mean_4d_ax2_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp);
-void mean_4d_ax3_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp);
-void mean_3d_ax0_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_01);
-void mean_3d_ax1_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_02);
-void mean_3d_ax2_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_03);
-void mean_2d_ax0_f16(int dim1, int dim2, __fp16* tmp, __fp16* tmp_0);
-void mean_2d_ax1_f16(int dim1, int dim2, __fp16* tmp, __fp16* tmp_1);
+void mean_4d_ax0_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp);
+void mean_4d_ax1_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp);
+void mean_4d_ax2_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp);
+void mean_4d_ax3_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp);
+void mean_3d_ax0_f16(int dim1, int dim2, int dim3, fffffp16* tmp, fffffp16* tmp_01);
+void mean_3d_ax1_f16(int dim1, int dim2, int dim3, fffffp16* tmp, fffffp16* tmp_02);
+void mean_3d_ax2_f16(int dim1, int dim2, int dim3, fffffp16* tmp, fffffp16* tmp_03);
+void mean_2d_ax0_f16(int dim1, int dim2, fffffp16* tmp, fffffp16* tmp_0);
+void mean_2d_ax1_f16(int dim1, int dim2, fffffp16* tmp, fffffp16* tmp_1);
 #endif
 
-static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, int dim2, int dim3, int out_size,
+static int ref_reduce_fp16(fffffp16* data, fffffp16* out_data, int dim0, int dim1, int dim2, int dim3, int out_size,
                            reduce_param* param)
 {
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
@@ -438,8 +438,8 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
     return 0;
 #else
     int offset = 0;
-    __fp16* tmp = ( __fp16* )malloc(sizeof(__fp16) * out_size);
-    memset(tmp, 0, sizeof(__fp16) * out_size);
+    fffffp16* tmp = ( fffffp16* )malloc(sizeof(fffffp16) * out_size);
+    memset(tmp, 0, sizeof(fffffp16) * out_size);
     int param_dim0 = param->param_dim[0];
     int param_dim1 = param->param_dim[1];
     int param_dim2 = param->param_dim[2];
@@ -486,8 +486,8 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                 ((param_dim0 == 1 && param_dim1 == 0) || (param_dim0 == 0 && param_dim1 == 1)))
         {
             // reduce on axis0
-            __fp16* tmp_01 = ( __fp16* )malloc(sizeof(__fp16) * dim1 * dim2 * dim3);
-            memset(tmp_01, 0, sizeof(__fp16) * dim1 * dim2 * dim3);
+            fffffp16* tmp_01 = ( fffffp16* )malloc(sizeof(fffffp16) * dim1 * dim2 * dim3);
+            memset(tmp_01, 0, sizeof(fffffp16) * dim1 * dim2 * dim3);
             sum_4d_ax0_f16(dim0, dim1, dim2, dim3, data, tmp_01);
             sum_3d_ax0_f16(dim1, dim2, dim3, tmp, tmp_01);
 
@@ -497,8 +497,8 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                 ((param_dim0 == 0 && param_dim1 == 2) || (param_dim0 == 2 && param_dim1 == 0)))
         {
             // reduce on axis0
-            __fp16* tmp_02 = ( __fp16* )malloc(sizeof(__fp16) * dim1 * dim2 * dim3);
-            memset(tmp_02, 0, sizeof(__fp16) * dim1 * dim2 * dim3);
+            fffffp16* tmp_02 = ( fffffp16* )malloc(sizeof(fffffp16) * dim1 * dim2 * dim3);
+            memset(tmp_02, 0, sizeof(fffffp16) * dim1 * dim2 * dim3);
             sum_4d_ax0_f16(dim0, dim1, dim2, dim3, data, tmp_02);
             sum_3d_ax1_f16(dim1, dim2, dim3, tmp, tmp_02);
 
@@ -508,8 +508,8 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                 ((param_dim0 == 0 && param_dim1 == 3) || (param_dim0 == 3 && param_dim1 == 0)))
         {
             // reduce on axis0
-            __fp16* tmp_03 = ( __fp16* )malloc(sizeof(__fp16) * dim1 * dim2 * dim3);
-            memset(tmp_03, 0, sizeof(__fp16) * dim1 * dim2 * dim3);
+            fffffp16* tmp_03 = ( fffffp16* )malloc(sizeof(fffffp16) * dim1 * dim2 * dim3);
+            memset(tmp_03, 0, sizeof(fffffp16) * dim1 * dim2 * dim3);
             sum_4d_ax0_f16(dim0, dim1, dim2, dim3, data, tmp_03);
             sum_3d_ax2_f16(dim1, dim2, dim3, tmp, tmp_03);
             free(tmp_03);
@@ -518,8 +518,8 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                 ((param_dim0 == 1 && param_dim1 == 2) || (param_dim0 == 2 && param_dim1 == 1)))
         {
             // reduce on axis1
-            __fp16* tmp_12 = ( __fp16* )malloc(sizeof(__fp16) * dim0 * dim2 * dim3);
-            memset(tmp_12, 0, sizeof(__fp16) * dim0 * dim2 * dim3);
+            fffffp16* tmp_12 = ( fffffp16* )malloc(sizeof(fffffp16) * dim0 * dim2 * dim3);
+            memset(tmp_12, 0, sizeof(fffffp16) * dim0 * dim2 * dim3);
             sum_4d_ax1_f16(dim0, dim1, dim2, dim3, data, tmp_12);
             sum_3d_ax1_f16(dim0, dim2, dim3, tmp, tmp_12);
 
@@ -529,8 +529,8 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                 ((param_dim0 == 1 && param_dim1 == 3) || (param_dim0 == 3 && param_dim1 == 1)))
         {
             // reduce on axis1
-            __fp16* tmp_13 = ( __fp16* )malloc(sizeof(__fp16) * dim0 * dim2 * dim3);
-            memset(tmp_13, 0, sizeof(__fp16) * dim0 * dim2 * dim3);
+            fffffp16* tmp_13 = ( fffffp16* )malloc(sizeof(fffffp16) * dim0 * dim2 * dim3);
+            memset(tmp_13, 0, sizeof(fffffp16) * dim0 * dim2 * dim3);
             sum_4d_ax1_f16(dim0, dim1, dim2, dim3, data, tmp_13);
             sum_3d_ax2_f16(dim0, dim2, dim3, tmp, tmp_13);
 
@@ -540,8 +540,8 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                 ((param_dim0 == 2 && param_dim1 == 3) || (param_dim0 == 3 && param_dim1 == 2)))
         {
             // reduce on axis2
-            __fp16* tmp_23 = ( __fp16* )malloc(sizeof(__fp16) * dim0 * dim1 * dim3);
-            memset(tmp_23, 0, sizeof(__fp16) * dim0 * dim1 * dim3);
+            fffffp16* tmp_23 = ( fffffp16* )malloc(sizeof(fffffp16) * dim0 * dim1 * dim3);
+            memset(tmp_23, 0, sizeof(fffffp16) * dim0 * dim1 * dim3);
             sum_4d_ax2_f16(dim0, dim1, dim2, dim3, data, tmp_23);
             sum_3d_ax2_f16(dim0, dim1, dim3, tmp, tmp_23);
 
@@ -555,11 +555,11 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                                      (param_dim0 == 2 && param_dim1 == 1 && param_dim2 == 0)))
         {
             // reduce on axis0
-            __fp16* tmp_01 = ( __fp16* )malloc(sizeof(__fp16) * dim1 * dim2 * dim3);
-            memset(tmp_01, 0, sizeof(__fp16) * dim1 * dim2 * dim3);
+            fffffp16* tmp_01 = ( fffffp16* )malloc(sizeof(fffffp16) * dim1 * dim2 * dim3);
+            memset(tmp_01, 0, sizeof(fffffp16) * dim1 * dim2 * dim3);
 
-            __fp16* tmp_0 = ( __fp16* )malloc(sizeof(__fp16) * dim2 * dim3);
-            memset(tmp_0, 0, sizeof(__fp16) * dim2 * dim3);
+            fffffp16* tmp_0 = ( fffffp16* )malloc(sizeof(fffffp16) * dim2 * dim3);
+            memset(tmp_0, 0, sizeof(fffffp16) * dim2 * dim3);
 
             sum_4d_ax0_f16(dim0, dim1, dim2, dim3, data, tmp_01);
             sum_3d_ax0_f16(dim1, dim2, dim3, tmp_0, tmp_01);
@@ -576,11 +576,11 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                                      (param_dim0 == 3 && param_dim1 == 1 && param_dim2 == 0)))
         {
             // reduce on axis0
-            __fp16* tmp_01 = ( __fp16* )malloc(sizeof(__fp16) * dim1 * dim2 * dim3);
-            memset(tmp_01, 0, sizeof(__fp16) * dim1 * dim2 * dim3);
+            fffffp16* tmp_01 = ( fffffp16* )malloc(sizeof(fffffp16) * dim1 * dim2 * dim3);
+            memset(tmp_01, 0, sizeof(fffffp16) * dim1 * dim2 * dim3);
 
-            __fp16* tmp_1 = ( __fp16* )malloc(sizeof(__fp16) * dim2 * dim3);
-            memset(tmp_1, 0, sizeof(__fp16) * dim2 * dim3);
+            fffffp16* tmp_1 = ( fffffp16* )malloc(sizeof(fffffp16) * dim2 * dim3);
+            memset(tmp_1, 0, sizeof(fffffp16) * dim2 * dim3);
 
             sum_4d_ax0_f16(dim0, dim1, dim2, dim3, data, tmp_01);
             sum_3d_ax0_f16(dim1, dim2, dim3, tmp_1, tmp_01);
@@ -597,11 +597,11 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                                      (param_dim0 == 3 && param_dim1 == 2 && param_dim2 == 0)))
         {
             // reduce on axis0
-            __fp16* tmp_02 = ( __fp16* )malloc(sizeof(__fp16) * dim1 * dim2 * dim3);
-            memset(tmp_02, 0, sizeof(__fp16) * dim1 * dim2 * dim3);
+            fffffp16* tmp_02 = ( fffffp16* )malloc(sizeof(fffffp16) * dim1 * dim2 * dim3);
+            memset(tmp_02, 0, sizeof(fffffp16) * dim1 * dim2 * dim3);
 
-            __fp16* tmp_1 = ( __fp16* )malloc(sizeof(__fp16) * dim1 * dim3);
-            memset(tmp_1, 0, sizeof(__fp16) * dim1 * dim3);
+            fffffp16* tmp_1 = ( fffffp16* )malloc(sizeof(fffffp16) * dim1 * dim3);
+            memset(tmp_1, 0, sizeof(fffffp16) * dim1 * dim3);
 
             sum_4d_ax0_f16(dim0, dim1, dim2, dim3, data, tmp_02);
             sum_3d_ax1_f16(dim1, dim2, dim3, tmp_1, tmp_02);
@@ -618,11 +618,11 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                                      (param_dim0 == 3 && param_dim1 == 2 && param_dim2 == 1)))
         {
             // reduce on axis0
-            __fp16* tmp_12 = ( __fp16* )malloc(sizeof(__fp16) * dim0 * dim2 * dim3);
-            memset(tmp_12, 0, sizeof(__fp16) * dim0 * dim2 * dim3);
+            fffffp16* tmp_12 = ( fffffp16* )malloc(sizeof(fffffp16) * dim0 * dim2 * dim3);
+            memset(tmp_12, 0, sizeof(fffffp16) * dim0 * dim2 * dim3);
 
-            __fp16* tmp_1 = ( __fp16* )malloc(sizeof(__fp16) * dim0 * dim3);
-            memset(tmp_1, 0, sizeof(__fp16) * dim0 * dim3);
+            fffffp16* tmp_1 = ( fffffp16* )malloc(sizeof(fffffp16) * dim0 * dim3);
+            memset(tmp_1, 0, sizeof(fffffp16) * dim0 * dim3);
 
             sum_4d_ax1_f16(dim0, dim1, dim2, dim3, data, tmp_12);
             sum_3d_ax1_f16(dim0, dim2, dim3, tmp_1, tmp_12);
@@ -638,7 +638,7 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
         if((param_dim0 == -2 && param_dim1 == -2 && param_dim2 == -2 && param_dim3 == -2) ||
            (param_dim0 == 0 && param_dim1 == 1 && param_dim2 == 2 && param_dim3 == 3))
         {
-            __fp16 s_tmp = fp32_to_fp16(0);
+            fffffp16 s_tmp = fp32_to_fp16(0);
             for(int n = 0; n < dim0; n++)
             {
                 for(int h = 0; h < dim1; h++)
@@ -676,8 +676,8 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                 ((param_dim0 == 1 && param_dim1 == 0) || (param_dim0 == 0 && param_dim1 == 1)))
         {
             // reduce on axis0
-            __fp16* tmp_01 = ( __fp16* )malloc(sizeof(__fp16) * dim1 * dim2 * dim3);
-            memset(tmp_01, 0, sizeof(__fp16) * dim1 * dim2 * dim3);
+            fffffp16* tmp_01 = ( fffffp16* )malloc(sizeof(fffffp16) * dim1 * dim2 * dim3);
+            memset(tmp_01, 0, sizeof(fffffp16) * dim1 * dim2 * dim3);
             mean_4d_ax0_f16(dim0, dim1, dim2, dim3, data, tmp_01);
             mean_3d_ax0_f16(dim1, dim2, dim3, tmp, tmp_01);
 
@@ -687,8 +687,8 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                 ((param_dim0 == 0 && param_dim1 == 2) || (param_dim0 == 2 && param_dim1 == 0)))
         {
             // reduce on axis0
-            __fp16* tmp_02 = ( __fp16* )malloc(sizeof(__fp16) * dim1 * dim2 * dim3);
-            memset(tmp_02, 0, sizeof(__fp16) * dim1 * dim2 * dim3);
+            fffffp16* tmp_02 = ( fffffp16* )malloc(sizeof(fffffp16) * dim1 * dim2 * dim3);
+            memset(tmp_02, 0, sizeof(fffffp16) * dim1 * dim2 * dim3);
             mean_4d_ax0_f16(dim0, dim1, dim2, dim3, data, tmp_02);
             mean_3d_ax1_f16(dim1, dim2, dim3, tmp, tmp_02);
 
@@ -698,8 +698,8 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                 ((param_dim0 == 0 && param_dim1 == 3) || (param_dim0 == 3 && param_dim1 == 0)))
         {
             // reduce on axis0
-            __fp16* tmp_03 = ( __fp16* )malloc(sizeof(__fp16) * dim1 * dim2 * dim3);
-            memset(tmp_03, 0, sizeof(__fp16) * dim1 * dim2 * dim3);
+            fffffp16* tmp_03 = ( fffffp16* )malloc(sizeof(fffffp16) * dim1 * dim2 * dim3);
+            memset(tmp_03, 0, sizeof(fffffp16) * dim1 * dim2 * dim3);
             mean_4d_ax0_f16(dim0, dim1, dim2, dim3, data, tmp_03);
             mean_3d_ax2_f16(dim1, dim2, dim3, tmp, tmp_03);
             free(tmp_03);
@@ -708,8 +708,8 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                 ((param_dim0 == 1 && param_dim1 == 2) || (param_dim0 == 2 && param_dim1 == 1)))
         {
             // reduce on axis1
-            __fp16* tmp_12 = ( __fp16* )malloc(sizeof(__fp16) * dim0 * dim2 * dim3);
-            memset(tmp_12, 0, sizeof(__fp16) * dim0 * dim2 * dim3);
+            fffffp16* tmp_12 = ( fffffp16* )malloc(sizeof(fffffp16) * dim0 * dim2 * dim3);
+            memset(tmp_12, 0, sizeof(fffffp16) * dim0 * dim2 * dim3);
             mean_4d_ax1_f16(dim0, dim1, dim2, dim3, data, tmp_12);
             mean_3d_ax1_f16(dim0, dim2, dim3, tmp, tmp_12);
 
@@ -719,8 +719,8 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                 ((param_dim0 == 1 && param_dim1 == 3) || (param_dim0 == 3 && param_dim1 == 1)))
         {
             // reduce on axis1
-            __fp16* tmp_13 = ( __fp16* )malloc(sizeof(__fp16) * dim0 * dim2 * dim3);
-            memset(tmp_13, 0, sizeof(__fp16) * dim0 * dim2 * dim3);
+            fffffp16* tmp_13 = ( fffffp16* )malloc(sizeof(fffffp16) * dim0 * dim2 * dim3);
+            memset(tmp_13, 0, sizeof(fffffp16) * dim0 * dim2 * dim3);
             mean_4d_ax1_f16(dim0, dim1, dim2, dim3, data, tmp_13);
             mean_3d_ax2_f16(dim0, dim2, dim3, tmp, tmp_13);
 
@@ -730,8 +730,8 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                 ((param_dim0 == 2 && param_dim1 == 3) || (param_dim0 == 3 && param_dim1 == 2)))
         {
             // reduce on axis2
-            __fp16* tmp_23 = ( __fp16* )malloc(sizeof(__fp16) * dim0 * dim1 * dim3);
-            memset(tmp_23, 0, sizeof(__fp16) * dim0 * dim1 * dim3);
+            fffffp16* tmp_23 = ( fffffp16* )malloc(sizeof(fffffp16) * dim0 * dim1 * dim3);
+            memset(tmp_23, 0, sizeof(fffffp16) * dim0 * dim1 * dim3);
             mean_4d_ax2_f16(dim0, dim1, dim2, dim3, data, tmp_23);
             mean_3d_ax2_f16(dim0, dim1, dim3, tmp, tmp_23);
 
@@ -745,11 +745,11 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                                      (param_dim0 == 2 && param_dim1 == 1 && param_dim2 == 0)))
         {
             // reduce on axis0
-            __fp16* tmp_01 = ( __fp16* )malloc(sizeof(__fp16) * dim1 * dim2 * dim3);
-            memset(tmp_01, 0, sizeof(__fp16) * dim1 * dim2 * dim3);
+            fffffp16* tmp_01 = ( fffffp16* )malloc(sizeof(fffffp16) * dim1 * dim2 * dim3);
+            memset(tmp_01, 0, sizeof(fffffp16) * dim1 * dim2 * dim3);
 
-            __fp16* tmp_0 = ( __fp16* )malloc(sizeof(__fp16) * dim2 * dim3);
-            memset(tmp_0, 0, sizeof(__fp16) * dim2 * dim3);
+            fffffp16* tmp_0 = ( fffffp16* )malloc(sizeof(fffffp16) * dim2 * dim3);
+            memset(tmp_0, 0, sizeof(fffffp16) * dim2 * dim3);
 
             mean_4d_ax0_f16(dim0, dim1, dim2, dim3, data, tmp_01);
             mean_3d_ax0_f16(dim1, dim2, dim3, tmp_0, tmp_01);
@@ -766,11 +766,11 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                                      (param_dim0 == 3 && param_dim1 == 1 && param_dim2 == 0)))
         {
             // reduce on axis0
-            __fp16* tmp_01 = ( __fp16* )malloc(sizeof(__fp16) * dim1 * dim2 * dim3);
-            memset(tmp_01, 0, sizeof(__fp16) * dim1 * dim2 * dim3);
+            fffffp16* tmp_01 = ( fffffp16* )malloc(sizeof(fffffp16) * dim1 * dim2 * dim3);
+            memset(tmp_01, 0, sizeof(fffffp16) * dim1 * dim2 * dim3);
 
-            __fp16* tmp_1 = ( __fp16* )malloc(sizeof(__fp16) * dim2 * dim3);
-            memset(tmp_1, 0, sizeof(__fp16) * dim2 * dim3);
+            fffffp16* tmp_1 = ( fffffp16* )malloc(sizeof(fffffp16) * dim2 * dim3);
+            memset(tmp_1, 0, sizeof(fffffp16) * dim2 * dim3);
 
             mean_4d_ax0_f16(dim0, dim1, dim2, dim3, data, tmp_01);
             mean_3d_ax0_f16(dim1, dim2, dim3, tmp_1, tmp_01);
@@ -787,11 +787,11 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                                      (param_dim0 == 3 && param_dim1 == 2 && param_dim2 == 0)))
         {
             // reduce on axis0
-            __fp16* tmp_02 = ( __fp16* )malloc(sizeof(__fp16) * dim1 * dim2 * dim3);
-            memset(tmp_02, 0, sizeof(__fp16) * dim1 * dim2 * dim3);
+            fffffp16* tmp_02 = ( fffffp16* )malloc(sizeof(fffffp16) * dim1 * dim2 * dim3);
+            memset(tmp_02, 0, sizeof(fffffp16) * dim1 * dim2 * dim3);
 
-            __fp16* tmp_1 = ( __fp16* )malloc(sizeof(__fp16) * dim1 * dim3);
-            memset(tmp_1, 0, sizeof(__fp16) * dim1 * dim3);
+            fffffp16* tmp_1 = ( fffffp16* )malloc(sizeof(fffffp16) * dim1 * dim3);
+            memset(tmp_1, 0, sizeof(fffffp16) * dim1 * dim3);
 
             mean_4d_ax0_f16(dim0, dim1, dim2, dim3, data, tmp_02);
             mean_3d_ax1_f16(dim1, dim2, dim3, tmp_1, tmp_02);
@@ -808,11 +808,11 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
                                      (param_dim0 == 3 && param_dim1 == 2 && param_dim2 == 1)))
         {
             // reduce on axis0
-            __fp16* tmp_12 = ( __fp16* )malloc(sizeof(__fp16) * dim0 * dim2 * dim3);
-            memset(tmp_12, 0, sizeof(__fp16) * dim0 * dim2 * dim3);
+            fffffp16* tmp_12 = ( fffffp16* )malloc(sizeof(fffffp16) * dim0 * dim2 * dim3);
+            memset(tmp_12, 0, sizeof(fffffp16) * dim0 * dim2 * dim3);
 
-            __fp16* tmp_1 = ( __fp16* )malloc(sizeof(__fp16) * dim0 * dim3);
-            memset(tmp_1, 0, sizeof(__fp16) * dim0 * dim3);
+            fffffp16* tmp_1 = ( fffffp16* )malloc(sizeof(fffffp16) * dim0 * dim3);
+            memset(tmp_1, 0, sizeof(fffffp16) * dim0 * dim3);
 
             mean_4d_ax1_f16(dim0, dim1, dim2, dim3, data, tmp_12);
             mean_3d_ax1_f16(dim0, dim2, dim3, tmp_1, tmp_12);
@@ -833,7 +833,7 @@ static int ref_reduce_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, i
 }
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
 // fp16
-void mean_4d_ax0_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp)
+void mean_4d_ax0_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp)
 {
     for(int j = 0; j < dim1 * dim2 * dim3; j++)
     {
@@ -847,7 +847,7 @@ void mean_4d_ax0_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, floa
         tmp[j] = s_tmp / dim0;
     }
 }
-void mean_4d_ax1_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp)
+void mean_4d_ax1_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp)
 {
     for(int n = 0; n < dim0; n++)
     {
@@ -863,7 +863,7 @@ void mean_4d_ax1_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, floa
         }
     }
 }
-void mean_4d_ax2_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp)
+void mean_4d_ax2_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp)
 {
     for(int n = 0; n < dim0; n++)
     {
@@ -882,7 +882,7 @@ void mean_4d_ax2_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, floa
         }
     }
 }
-void mean_4d_ax3_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp)
+void mean_4d_ax3_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp)
 {
     for(int n = 0; n < dim0; n++)
     {
@@ -901,7 +901,7 @@ void mean_4d_ax3_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, floa
         }
     }
 }
-void sum_4d_ax0_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp)
+void sum_4d_ax0_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp)
 {
     for(int j = 0; j < dim1 * dim2 * dim3; j++)
     {
@@ -913,7 +913,7 @@ void sum_4d_ax0_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float
         }
     }
 }
-void sum_4d_ax1_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp)
+void sum_4d_ax1_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp)
 {
     for(int n = 0; n < dim0; n++)
     {
@@ -927,7 +927,7 @@ void sum_4d_ax1_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float
         }
     }
 }
-void sum_4d_ax2_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp)
+void sum_4d_ax2_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp)
 {
     for(int n = 0; n < dim0; n++)
     {
@@ -944,7 +944,7 @@ void sum_4d_ax2_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float
         }
     }
 }
-void sum_4d_ax3_fp16(int dim0, int dim1, int dim2, int dim3, __fp16* data, float* tmp)
+void sum_4d_ax3_fp16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, float* tmp)
 {
     for(int n = 0; n < dim0; n++)
     {
@@ -1095,12 +1095,12 @@ void sum_2d_ax1_fp16(int dim1, int dim2, float* tmp, float* tmp_1)
 }
 #else
 // mean
-void mean_4d_ax0_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp)
+void mean_4d_ax0_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp)
 {
     for(int j = 0; j < dim1 * dim2 * dim3; j++)
     {
         // nhwc
-        __fp16 s_tmp = fp32_to_fp16(0);
+        fffffp16 s_tmp = fp32_to_fp16(0);
         for(int n = 0; n < dim0; n++)
         {
             int offset = n * dim1 * dim2 * dim3 + j;
@@ -1109,13 +1109,13 @@ void mean_4d_ax0_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp1
         tmp[j] = s_tmp / dim0;
     }
 }
-void mean_4d_ax1_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp)
+void mean_4d_ax1_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp)
 {
     for(int n = 0; n < dim0; n++)
     {
         for(int cw = 0; cw < dim2 * dim3; cw++)
         {
-            __fp16 s_tmp = fp32_to_fp16(0);
+            fffffp16 s_tmp = fp32_to_fp16(0);
             for(int h = 0; h < dim1; h++)
             {
                 int offset = n * dim1 * dim2 * dim3 + h * dim2 * dim3 + cw;
@@ -1125,7 +1125,7 @@ void mean_4d_ax1_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp1
         }
     }
 }
-void mean_4d_ax2_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp)
+void mean_4d_ax2_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp)
 {
     for(int n = 0; n < dim0; n++)
     {
@@ -1133,7 +1133,7 @@ void mean_4d_ax2_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp1
         {
             for(int c = 0; c < dim3; c++)
             {
-                __fp16 s_tmp = fp32_to_fp16(0);
+                fffffp16 s_tmp = fp32_to_fp16(0);
                 for(int w = 0; w < dim2; w++)
                 {
                     int offset = n * dim1 * dim2 * dim3 + h * dim2 * dim3 + w * dim3 + c;
@@ -1144,7 +1144,7 @@ void mean_4d_ax2_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp1
         }
     }
 }
-void mean_4d_ax3_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp)
+void mean_4d_ax3_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp)
 {
     for(int n = 0; n < dim0; n++)
     {
@@ -1152,7 +1152,7 @@ void mean_4d_ax3_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp1
         {
             for(int w = 0; w < dim2; w++)
             {
-                __fp16 s_tmp = fp32_to_fp16(0);
+                fffffp16 s_tmp = fp32_to_fp16(0);
                 for(int c = 0; c < dim3; c++)
                 {
                     int offset = n * dim1 * dim2 * dim3 + h * dim2 * dim3 + w * dim3 + c;
@@ -1163,11 +1163,11 @@ void mean_4d_ax3_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp1
         }
     }
 }
-void mean_3d_ax0_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_01)
+void mean_3d_ax0_f16(int dim1, int dim2, int dim3, fffffp16* tmp, fffffp16* tmp_01)
 {
     for(int wc = 0; wc < dim2 * dim3; wc++)
     {
-        __fp16 s_tmp = fp32_to_fp16(0);
+        fffffp16 s_tmp = fp32_to_fp16(0);
         for(int h = 0; h < dim1; h++)
         {
             int index = h * dim2 * dim3 + wc;
@@ -1176,13 +1176,13 @@ void mean_3d_ax0_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_01)
         tmp[wc] = s_tmp / dim1;
     }
 }
-void mean_3d_ax1_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_02)
+void mean_3d_ax1_f16(int dim1, int dim2, int dim3, fffffp16* tmp, fffffp16* tmp_02)
 {
     for(int h = 0; h < dim1; h++)
     {
         for(int c = 0; c < dim3; c++)
         {
-            __fp16 s_tmp = fp32_to_fp16(0);
+            fffffp16 s_tmp = fp32_to_fp16(0);
             for(int w = 0; w < dim2; w++)
             {
                 int index = h * dim2 * dim3 + w * dim3 + c;
@@ -1192,13 +1192,13 @@ void mean_3d_ax1_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_02)
         }
     }
 }
-void mean_3d_ax2_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_03)
+void mean_3d_ax2_f16(int dim1, int dim2, int dim3, fffffp16* tmp, fffffp16* tmp_03)
 {
     for(int h = 0; h < dim1; h++)
     {
         for(int w = 0; w < dim2; w++)
         {
-            __fp16 s_tmp = fp32_to_fp16(0);
+            fffffp16 s_tmp = fp32_to_fp16(0);
             for(int c = 0; c < dim3; c++)
             {
                 int index = h * dim2 * dim3 + w * dim3 + c;
@@ -1208,11 +1208,11 @@ void mean_3d_ax2_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_03)
         }
     }
 }
-void mean_2d_ax0_f16(int dim1, int dim2, __fp16* tmp, __fp16* tmp_0)
+void mean_2d_ax0_f16(int dim1, int dim2, fffffp16* tmp, fffffp16* tmp_0)
 {
     for(int w = 0; w < dim2; w++)
     {
-        __fp16 s_tmp = fp32_to_fp16(0);
+        fffffp16 s_tmp = fp32_to_fp16(0);
         for(int h = 0; h < dim1; h++)
         {
             int index = h * dim2 + w;
@@ -1221,11 +1221,11 @@ void mean_2d_ax0_f16(int dim1, int dim2, __fp16* tmp, __fp16* tmp_0)
         tmp[w] += s_tmp / dim1;
     }
 }
-void mean_2d_ax1_f16(int dim1, int dim2, __fp16* tmp, __fp16* tmp_1)
+void mean_2d_ax1_f16(int dim1, int dim2, fffffp16* tmp, fffffp16* tmp_1)
 {
     for(int h = 0; h < dim1; h++)
     {
-        __fp16 s_tmp = fp32_to_fp16(0);
+        fffffp16 s_tmp = fp32_to_fp16(0);
         for(int w = 0; w < dim2; w++)
         {
             int index = h * dim2 + w;
@@ -1236,7 +1236,7 @@ void mean_2d_ax1_f16(int dim1, int dim2, __fp16* tmp, __fp16* tmp_1)
 }
 
 // sum
-void sum_4d_ax0_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp)
+void sum_4d_ax0_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp)
 {
     for(int j = 0; j < dim1 * dim2 * dim3; j++)
     {
@@ -1248,7 +1248,7 @@ void sum_4d_ax0_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16
         }
     }
 }
-void sum_4d_ax1_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp)
+void sum_4d_ax1_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp)
 {
     for(int n = 0; n < dim0; n++)
     {
@@ -1262,7 +1262,7 @@ void sum_4d_ax1_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16
         }
     }
 }
-void sum_4d_ax2_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp)
+void sum_4d_ax2_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp)
 {
     for(int n = 0; n < dim0; n++)
     {
@@ -1279,7 +1279,7 @@ void sum_4d_ax2_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16
         }
     }
 }
-void sum_4d_ax3_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16* tmp)
+void sum_4d_ax3_f16(int dim0, int dim1, int dim2, int dim3, fffffp16* data, fffffp16* tmp)
 {
     for(int n = 0; n < dim0; n++)
     {
@@ -1296,7 +1296,7 @@ void sum_4d_ax3_f16(int dim0, int dim1, int dim2, int dim3, __fp16* data, __fp16
         }
     }
 }
-void sum_3d_ax0_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_01)
+void sum_3d_ax0_f16(int dim1, int dim2, int dim3, fffffp16* tmp, fffffp16* tmp_01)
 {
     for(int wc = 0; wc < dim2 * dim3; wc++)
     {
@@ -1307,7 +1307,7 @@ void sum_3d_ax0_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_01)
         }
     }
 }
-void sum_3d_ax1_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_02)
+void sum_3d_ax1_f16(int dim1, int dim2, int dim3, fffffp16* tmp, fffffp16* tmp_02)
 {
     for(int h = 0; h < dim1; h++)
     {
@@ -1321,7 +1321,7 @@ void sum_3d_ax1_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_02)
         }
     }
 }
-void sum_3d_ax2_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_03)
+void sum_3d_ax2_f16(int dim1, int dim2, int dim3, fffffp16* tmp, fffffp16* tmp_03)
 {
     for(int h = 0; h < dim1; h++)
     {
@@ -1335,7 +1335,7 @@ void sum_3d_ax2_f16(int dim1, int dim2, int dim3, __fp16* tmp, __fp16* tmp_03)
         }
     }
 }
-void sum_2d_ax0_f16(int dim1, int dim2, __fp16* tmp, __fp16* tmp_0)
+void sum_2d_ax0_f16(int dim1, int dim2, fffffp16* tmp, fffffp16* tmp_0)
 {
     for(int w = 0; w < dim2; w++)
     {
@@ -1346,7 +1346,7 @@ void sum_2d_ax0_f16(int dim1, int dim2, __fp16* tmp, __fp16* tmp_0)
         }
     }
 }
-void sum_2d_ax1_f16(int dim1, int dim2, __fp16* tmp, __fp16* tmp_1)
+void sum_2d_ax1_f16(int dim1, int dim2, fffffp16* tmp, fffffp16* tmp_1)
 {
     for(int h = 0; h < dim1; h++)
     {

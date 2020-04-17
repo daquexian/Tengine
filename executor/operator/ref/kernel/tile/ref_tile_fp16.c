@@ -21,7 +21,7 @@
  * Copyright (c) 2019, Open AI Lab
  * Author: bingzhang@openailab.com
  */
-static int ref_tile_fp16(__fp16* data, __fp16* output, std::vector<int> repeat, std::vector<int> inDim,
+static int ref_tile_fp16(fffffp16* data, fffffp16* output, std::vector<int> repeat, std::vector<int> inDim,
                          std::vector<int> outDim, float scale, int zero_point)
 {
     int index = 0;

@@ -1,5 +1,5 @@
 
-static void bilinear_resize_fp16(__fp16* inp, __fp16* output, int h, int w, int c, float scale_x, float scale_y, int oh,
+static void bilinear_resize_fp16(fffffp16* inp, fffffp16* output, int h, int w, int c, float scale_x, float scale_y, int oh,
                                  int ow)
 {
     int out_hw = oh * ow;
@@ -48,7 +48,7 @@ static void bilinear_resize_fp16(__fp16* inp, __fp16* output, int h, int w, int 
     }
 }
 
-static int ref_resize_fp16(__fp16* input, __fp16* output, struct resize_param* param, int type)
+static int ref_resize_fp16(fffffp16* input, fffffp16* output, struct resize_param* param, int type)
 {
     int batch = param->batch;
     int channel = param->channel;
@@ -62,8 +62,8 @@ static int ref_resize_fp16(__fp16* input, __fp16* output, struct resize_param* p
             int si, sj;
             for(int k = 0; k < channel; k++)
             {
-                __fp16* input_c = input + n * in_chw + k * param->input_h * param->input_w;
-                __fp16* output_c = output + k * param->output_h * param->output_w;
+                fffffp16* input_c = input + n * in_chw + k * param->input_h * param->input_w;
+                fffffp16* output_c = output + k * param->output_h * param->output_w;
                 for(int i = 0; i < param->output_h; i++)
                 {
                     si = T_MIN(( int )(i * param->scale_y), param->input_h - 1);

@@ -22,7 +22,7 @@
  * Author: zpluo@openailab.com
  */
 
-int ref_unary_fp16(__fp16* in_data, __fp16* out_data, int size,int type, float scale, int zero_point)
+int ref_unary_fp16(fffffp16* in_data, fffffp16* out_data, int size,int type, float scale, int zero_point)
 {
     // float* out_data = ( float* )data;
     switch(type){

@@ -147,14 +147,14 @@ bool RefDetectionOutput::Run(Node* node)
     }
     if(output_tensor->GetDataType() == TENGINE_DT_FP16)
     {
-        __fp16* output = ( __fp16* )get_tensor_mem(output_tensor);
+        fffffp16* output = ( fffffp16* )get_tensor_mem(output_tensor);
         TShape& out_shape = output_tensor->GetShape();
         std::vector<int> outdim = {1, num_detected, 6, 1};
         out_shape.SetDim(outdim);
         for(int i = 0; i < num_detected; i++)
         {
             const Box& r = param.bbox_rects[i];
-            __fp16* outptr = output + i * 6;
+            fffffp16* outptr = output + i * 6;
             outptr[0] = fp32_to_fp16(r.class_idx);
             outptr[1] = fp32_to_fp16(r.score);
             outptr[2] = fp32_to_fp16(r.x0);

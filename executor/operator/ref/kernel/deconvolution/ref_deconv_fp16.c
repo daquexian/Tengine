@@ -1,9 +1,9 @@
-static inline void activation_fp16(__fp16* input, int activation)
+static inline void activation_fp16(fffffp16* input, int activation)
 {
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
     float tmp = fp16_to_fp32(*input);
 #else
-    __fp16 tmp = *input;
+    fffffp16 tmp = *input;
 #endif
     if(activation >= 0)
     {
@@ -22,7 +22,7 @@ static inline void activation_fp16(__fp16* input, int activation)
 #endif
 }
 
-static int ref_deconv_fp16(const __fp16* input, __fp16* output, const __fp16* kernel, const __fp16* bias,
+static int ref_deconv_fp16(const fffffp16* input, fffffp16* output, const fffffp16* kernel, const fffffp16* bias,
                            const deconv_ref_param* param)
 {
     int batch = param->batch;
@@ -52,7 +52,7 @@ static int ref_deconv_fp16(const __fp16* input, __fp16* output, const __fp16* ke
     int kernel_offset = 0;
     int output_offset = 0;
 
-    memset(( void* )output, 0, output_h * output_w * output_c * batch * group * sizeof(__fp16));
+    memset(( void* )output, 0, output_h * output_w * output_c * batch * group * sizeof(fffffp16));
 
     for(n = 0; n < batch; ++n)
     {

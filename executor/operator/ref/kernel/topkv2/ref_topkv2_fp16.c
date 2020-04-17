@@ -43,7 +43,7 @@ static inline void quick_sort_fp16(float* a, int low, int high, std::vector<int>
     quick_sort_fp16(a, low + 1, j, indexv);    //用同样的方式对分出来的右边的部分进行同上的做法
 }
 
-static int ref_topkv2_fp16(const __fp16* in_data, __fp16* out_data, int* out_index, struct topkv2_param* param)
+static int ref_topkv2_fp16(const fffffp16* in_data, fffffp16* out_data, int* out_index, struct topkv2_param* param)
 {
     int k = param->k;
     int row_size = param->row_size;

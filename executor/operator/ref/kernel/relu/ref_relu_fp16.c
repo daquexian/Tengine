@@ -22,11 +22,11 @@
  * Author: zpluo@openailab.com
  */
 
-int ref_relu_fp16(__fp16* in_data, __fp16* out_data, int size, float negative_slope, float scale, int zero_point)
+int ref_relu_fp16(fffffp16* in_data, fffffp16* out_data, int size, float negative_slope, float scale, int zero_point)
 {
 /* for arm32 && x86 */
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
-    //__fp16* data = ( __fp16* )data;
+    //fffffp16* data = ( fffffp16* )data;
     if(negative_slope == 0.0)
     {
         for(int i = 0; i < size; i++)

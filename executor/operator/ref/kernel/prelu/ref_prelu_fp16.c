@@ -1,8 +1,8 @@
-static int ref_prelu_fp16(__fp16* data, __fp16* out_data, int dim0, int dim1, int dim2, int dim3, float* slope,
+static int ref_prelu_fp16(fffffp16* data, fffffp16* out_data, int dim0, int dim1, int dim2, int dim3, float* slope,
                           prelu_param* param)
 {
     int offset = 0;
-    //__fp16* data = ( __fp16* )data;
+    //fffffp16* data = ( fffffp16* )data;
     for(int i = 0; i < dim0; i++)
     {
         for(int c = 0; c < dim1; c++)

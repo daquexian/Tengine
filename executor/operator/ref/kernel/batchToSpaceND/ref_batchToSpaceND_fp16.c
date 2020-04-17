@@ -22,7 +22,7 @@
  * Author: bingzhang@openailab.com
  */
 
-static int ref_batchToSpaceND_fp16(const __fp16* in_data, __fp16* out_data, struct batchToSpaceND_param* param)
+static int ref_batchToSpaceND_fp16(const fffffp16* in_data, fffffp16* out_data, struct batchToSpaceND_param* param)
 {
     for(int in_batch = 0; in_batch < param->in_dims[0]; ++in_batch){
         const int out_batch = in_batch % param->out_dims[0];
@@ -38,10 +38,10 @@ static int ref_batchToSpaceND_fp16(const __fp16* in_data, __fp16* out_data, stru
                     continue;
                 }
                 int outOffset = out_batch*param->out_dims[1]*param->out_dims[2]*param->out_dims[3] + out_h * param->out_dims[2]*param->out_dims[3] + out_w *param->in_dims[3];
-                __fp16* out = out_data + outOffset;
+                fffffp16* out = out_data + outOffset;
                 int inOffset = in_batch*param->in_dims[1]*param->in_dims[2]*param->in_dims[3] + in_h *param->in_dims[2] *param->in_dims[3] + in_w *param->in_dims[3];
-                const __fp16* in = in_data + inOffset;
-                memcpy(out, in, param->in_dims[3] * sizeof(__fp16));
+                const fffffp16* in = in_data + inOffset;
+                memcpy(out, in, param->in_dims[3] * sizeof(fffffp16));
             }
         }
     }

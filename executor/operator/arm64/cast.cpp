@@ -59,7 +59,7 @@ struct CastOps : public NodeOps
         if (type_from == 1 && type_to == 2)
         {
             float* data = ( float* )get_tensor_mem(input_tensor);
-            __fp16* out_data = ( __fp16* )get_tensor_mem(output_tensor);
+            fffffp16* out_data = ( fffffp16* )get_tensor_mem(output_tensor);
             for(int i = 0; i < (elem_num & -4); i += 4)
             {
                 float32x4_t x = vld1q_f32(data + i);
@@ -75,7 +75,7 @@ struct CastOps : public NodeOps
 
         if (type_from == 2 && type_to == 1)
         {
-            __fp16* data = ( __fp16* )get_tensor_mem(input_tensor);
+            fffffp16* data = ( fffffp16* )get_tensor_mem(input_tensor);
             float* out_data = ( float* )get_tensor_mem(output_tensor);
             for(int i = 0; i < (elem_num & -4); i += 4)
             {

@@ -1,4 +1,4 @@
-static int ref_roipooling_fp16(__fp16* featmap, __fp16* roi, __fp16* output, roipooling_ref_param* param)
+static int ref_roipooling_fp16(fffffp16* featmap, fffffp16* roi, fffffp16* output, roipooling_ref_param* param)
 {
     int channel = param->channel;
     int feat_size = param->in_h * param->in_w;
@@ -22,7 +22,7 @@ static int ref_roipooling_fp16(__fp16* featmap, __fp16* roi, __fp16* output, roi
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
         float* roi_ptr = roi_f32 + n * 4;
 #else
-        __fp16* roi_ptr = roi + n * 4;
+        fffffp16* roi_ptr = roi + n * 4;
 #endif
         int roi_x0 = round(roi_ptr[0] * param->spatial_scale);
         int roi_y0 = round(roi_ptr[1] * param->spatial_scale);
@@ -37,7 +37,7 @@ static int ref_roipooling_fp16(__fp16* featmap, __fp16* roi, __fp16* output, roi
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
             const float* feat_ptr = featmap_f32 + c * feat_size;
 #else
-            const __fp16* feat_ptr = featmap + c * feat_size;
+            const fffffp16* feat_ptr = featmap + c * feat_size;
 #endif
             for(int h = 0; h < param->out_h; ++h)
             {

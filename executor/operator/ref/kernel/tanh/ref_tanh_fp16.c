@@ -22,7 +22,7 @@
  * Author: zpluo@openailab.com
  */
 
-int ref_tanh_fp16(__fp16* data, int size, struct tanh_param* param)
+int ref_tanh_fp16(fffffp16* data, int size, struct tanh_param* param)
 {
     for(int i = 0; i < size; i++)
     {

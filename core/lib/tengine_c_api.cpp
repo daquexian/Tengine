@@ -295,6 +295,7 @@ graph_t create_graph(context_t context, const char* model_format, const char* fn
     const char* graph_name = nullptr;
     char tmp_buf[128];
 
+    std::cout << __FILE__ << " " <<  __LINE__ << std::endl;
     /* if model_format is NULL, create a empty graph, so that model_name is NULL */
     if(model_format == nullptr)
     {
@@ -325,11 +326,14 @@ graph_t create_graph(context_t context, const char* model_format, const char* fn
         sprintf(tmp_buf, "%p:", ( void* )exec_context);
 
         std::string model_name(tmp_buf);
+    std::cout << __FILE__ << " " <<  __LINE__ << std::endl;
 
         model_name += graph_name;
+    std::cout << __FILE__ << " " <<  __LINE__ << std::endl;
 
         bool model_loaded = false;
 
+    std::cout << __FILE__ << " " <<  __LINE__ << std::endl;
         if(file_model)
         {
             if(vload_file_model(exec_context, model_name.c_str(), model_format, fname, argp) == 0)
@@ -340,10 +344,13 @@ graph_t create_graph(context_t context, const char* model_format, const char* fn
             const void* addr = ( const void* )fname;
             int mem_size = va_arg(argp, int);
 
+            std::cout << __FILE__ << " " <<  __LINE__ << std::endl;
             if(vload_mem_model(exec_context, model_name.c_str(), real_format.c_str(), addr, mem_size, argp) == 0)
                 model_loaded = true;
         }
 
+    std::cout << __FILE__ << " " <<  __LINE__ << std::endl;
+    std::cout << "loaded: " << model_loaded << std::endl;
         if(model_loaded)
             graph = create_graph_in_context(exec_context, graph_name, model_name.c_str());
     }

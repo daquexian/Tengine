@@ -39,7 +39,7 @@ struct pad_param
 {
     int mode;
     float cv_f32;
-    __fp16 cv_f16;
+    fffffp16 cv_f16;
     int8_t cv_int8;
     uint8_t cv_uint8;
     int in_size;

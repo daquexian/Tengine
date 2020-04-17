@@ -1,4 +1,4 @@
-static int ref_upsample_fp16(__fp16* input, __fp16* output, upsample_param* param)
+static int ref_upsample_fp16(fffffp16* input, fffffp16* output, upsample_param* param)
 {
     for(int n = 0; n < param->batch; ++n)
     {

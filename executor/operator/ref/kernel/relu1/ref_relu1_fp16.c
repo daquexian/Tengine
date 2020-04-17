@@ -22,7 +22,7 @@
  * Author: zpluo@openailab.com
  */
 
-int ref_relu1_fp16(__fp16* data, __fp16* out_data,int size, float scale, int zero_point)
+int ref_relu1_fp16(fffffp16* data, fffffp16* out_data,int size, float scale, int zero_point)
 {
 /* for arm32 && x86 */
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8

@@ -53,15 +53,15 @@ using namespace arm_compute;
 #endif
 namespace TEngine {
 
-static inline void copy_fp32_to_fp16(__fp16* f16, const float* f32, const int f32_size)
+static inline void copy_fp32_to_fp16(fffffp16* f16, const float* f32, const int f32_size)
 {
     for(unsigned int i = 0; i < f32_size / sizeof(float); i++)
         f16[i] = f32[i];
 }
 
-static inline void copy_fp16_to_fp32(float* f32, const __fp16* f16, const int f16_size)
+static inline void copy_fp16_to_fp32(float* f32, const fffffp16* f16, const int f16_size)
 {
-    for(unsigned int i = 0; i < f16_size / sizeof(__fp16); i++)
+    for(unsigned int i = 0; i < f16_size / sizeof(fffffp16); i++)
         f32[i] = f16[i];
 }
 
@@ -70,9 +70,9 @@ inline void copy_buffer(void* dest, const void* src, const int src_len, DataType
     if(dest_type == src_type)
         memcpy(dest, src, src_len);
     else if(dest_type == DataType::F16 && src_type == DataType::F32)
-        copy_fp32_to_fp16(( __fp16* )dest, ( const float* )src, src_len);
+        copy_fp32_to_fp16(( fffffp16* )dest, ( const float* )src, src_len);
     else if(dest_type == DataType::F32 && src_type == DataType::F16)
-        copy_fp16_to_fp32(( float* )dest, ( const __fp16* )src, src_len);
+        copy_fp16_to_fp32(( float* )dest, ( const fffffp16* )src, src_len);
 }
 
 /* the data type of the tensor */

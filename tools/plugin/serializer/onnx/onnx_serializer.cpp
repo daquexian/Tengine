@@ -66,20 +66,24 @@ namespace TEngine {
 
 using op_load_t = std::function<bool(StaticGraph* graph, StaticNode* node, const onnx::NodeProto&)>;
 
-bool OnnxSerializer::LoadModel(const std::vector<std::string>& file_list, StaticGraph* graph)
+bool OnnxSerializer::LoadModel(const std::vector<std::string>& file_list, StaticGraph* graph) {
+    return false;
+}
+
+bool OnnxSerializer::LoadModel(const std::vector<const void*>& addr_list, const std::vector<int>& size_list,
+                           StaticGraph* graph, bool transfer_mem)
 {
-    if(file_list.size() != GetFileNum())
-        return false;
-
+    std::string onnx_pb_buf(static_cast<const char *>(addr_list[0]), size_list[0]);
     onnx::ModelProto model;
-
-    if(!LoadModelFile(file_list[0].c_str(), model))
+    bool s1 = model.ParseFromString(onnx_pb_buf);
+    if (!s1) {
         return false;
+    }
 
     //printf("file size: %d \n", (int)file_list[0].size());
-    SetGraphSource(graph, file_list[0]);
+    SetGraphSource(graph, "convertmodel.com");
     SetGraphSourceFormat(graph, "onnx");
-    SetGraphConstTensorFile(graph, file_list[0]);
+    SetGraphConstTensorFile(graph, "convertmodel.com");
     SetGraphLayout(graph, TENGINE_LAYOUT_NCHW);
     SetModelLayout(graph, TENGINE_LAYOUT_NCHW);
     SetModelFormat(graph, MODEL_FORMAT_ONNX);
@@ -1339,6 +1343,7 @@ bool OnnxSerializerRegisterOpLoader(void)
 {
     // first get the onnx_serializer object
 
+    std::cout << "aa" << std::endl;
     SerializerPtr serializer;
 
     if(!SerializerManager::SafeGet("onnx", serializer))

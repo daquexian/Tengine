@@ -58,6 +58,7 @@ namespace TEngine {
 class GraphExecutor;
 
 int InitAllPlugin(void);
+int InitPluginForConverter(void);
 
 GraphExecutor* do_merge_graph(std::vector<GraphExecutor*>& exec_list);
 

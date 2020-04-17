@@ -97,7 +97,7 @@ bool RefShuffleChannel::Prerun(Node* node)
     }
     else if(input_tensor->GetDataType()==TENGINE_DT_FP16)
     {
-        op_param.eletsize=sizeof(__fp16);
+        op_param.eletsize=sizeof(fffffp16);
     }
     else if(input_tensor->GetDataType()==TENGINE_DT_INT8)
     {

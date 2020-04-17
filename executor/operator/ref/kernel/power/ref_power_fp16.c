@@ -22,7 +22,7 @@
  * Author: bingzhang@openailab.com
  */
 
-int ref_power_fp16(__fp16* input, __fp16* output,ref_power_param* param)
+int ref_power_fp16(fffffp16* input, fffffp16* output,ref_power_param* param)
 {
 /* for arm32 && x86 */
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8

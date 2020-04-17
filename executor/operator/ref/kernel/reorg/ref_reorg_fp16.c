@@ -22,7 +22,7 @@
  * Author: jingyou@openailab.com
  */
 
-static int ref_reorg_fp16(const __fp16* in_data, __fp16* out_data, ref_reorg_param* param)
+static int ref_reorg_fp16(const fffffp16* in_data, fffffp16* out_data, ref_reorg_param* param)
 {
-    return ref_reorg_common(( const char* )in_data, ( char* )out_data, param, sizeof(__fp16));
+    return ref_reorg_common(( const char* )in_data, ( char* )out_data, param, sizeof(fffffp16));
 }

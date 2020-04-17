@@ -22,7 +22,7 @@
  * Author: zpluo@openailab.com
  */
 
-static int ref_shuffle_channel_fp16(const __fp16* in_data, __fp16* out_data, shuffle_channel_param* op_param)
+static int ref_shuffle_channel_fp16(const fffffp16* in_data, fffffp16* out_data, shuffle_channel_param* op_param)
 {
     return ref_shuffle_channel_common(( const char* )in_data, ( char* )out_data, op_param);
 }

@@ -22,7 +22,7 @@
  * Author: zpluo@openailab.com
  */
 
-int ref_scale_fp16(__fp16* in_data, __fp16* out_data,__fp16* gamma_data,__fp16* beta_data, scale_param* param)
+int ref_scale_fp16(fffffp16* in_data, fffffp16* out_data,fffffp16* gamma_data,fffffp16* beta_data, scale_param* param)
 {
 /* for arm32 && x86 */
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8

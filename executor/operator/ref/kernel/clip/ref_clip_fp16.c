@@ -22,7 +22,7 @@
  * Author: bingzhang@openailab.com
  */
 
-int ref_clip_fp16(__fp16* in_data, __fp16* data, int size, float max, float min, float scale, int zero_point)
+int ref_clip_fp16(fffffp16* in_data, fffffp16* data, int size, float max, float min, float scale, int zero_point)
 {
 /* for arm32 && x86 */
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8

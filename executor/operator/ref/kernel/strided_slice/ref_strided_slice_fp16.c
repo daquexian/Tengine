@@ -1,4 +1,4 @@
-static int ref_strided_slice_fp16(__fp16* in_data, __fp16* out_data, strided_slice_param* param)
+static int ref_strided_slice_fp16(fffffp16* in_data, fffffp16* out_data, strided_slice_param* param)
 {
     int out_chw = param->out_c * param->out_h * param->out_w;
     int out_cw = param->out_c * param->out_w;

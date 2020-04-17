@@ -1,10 +1,10 @@
 
-static inline void activation_fp16(__fp16* input, int activation)
+static inline void activation_fp16(fffffp16* input, int activation)
 {
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
     float tmp = fp16_to_fp32(*input);
 #else
-    __fp16 tmp = *input;
+    fffffp16 tmp = *input;
 #endif
     if(activation >= 0)
     {
@@ -23,7 +23,7 @@ static inline void activation_fp16(__fp16* input, int activation)
 #endif
 }
 
-static int ref_conv_fp16(const __fp16* input, __fp16* output, const __fp16* kernel, const __fp16* bias, op_data* param)
+static int ref_conv_fp16(const fffffp16* input, fffffp16* output, const fffffp16* kernel, const fffffp16* bias, op_data* param)
 {
     int batch = param->batch;
     int group = param->group;
@@ -54,7 +54,7 @@ static int ref_conv_fp16(const __fp16* input, __fp16* output, const __fp16* kern
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
                         float total = bias ? fp16_to_fp32(bias[output_c * g + c]) : 0;
 #else
-                        __fp16 total = bias ? bias[output_c * g + c] : 0;
+                        fffffp16 total = bias ? bias[output_c * g + c] : 0;
 #endif
                         if(param->layout == 0)
                         {

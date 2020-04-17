@@ -22,7 +22,7 @@
  * Author: zpluo@openailab.com
  */
 
-int ref_layernormlstm_fp16(__fp16* total_input_data, __fp16* total_output_data, lnlstm_param* param)
+int ref_layernormlstm_fp16(fffffp16* total_input_data, fffffp16* total_output_data, lnlstm_param* param)
 {
     /* for arm32 && x86 */
     for(int i = 0; i < param->sequence_size; i++)

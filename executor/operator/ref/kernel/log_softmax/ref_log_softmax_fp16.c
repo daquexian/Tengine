@@ -27,7 +27,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-int ref_log_softmax_kernel_fp16(__fp16* input, __fp16* output, float* max_array, float* sum_array, op_data* op_param)
+int ref_log_softmax_kernel_fp16(fffffp16* input, fffffp16* output, float* max_array, float* sum_array, op_data* op_param)
 {
     int out_size = op_param->out_size;
     int in_size = op_param->in_size;

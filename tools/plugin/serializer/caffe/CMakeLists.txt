@@ -8,25 +8,19 @@ if(NOT DEFINED PROTOBUF_CFLAGS)
 endif()
 
 set(SERIALIZER_TARGET caffe-serializer)
-set(caffe_proto_cc ${CMAKE_CURRENT_BINARY_DIR}/te_caffe.pb.cc)
-set(caffe_dir ${CMAKE_CURRENT_SOURCE_DIR})
-set(dest_dir  ${CMAKE_CURRENT_BINARY_DIR})
+# set(caffe_proto_cc ${CMAKE_CURRENT_BINARY_DIR}/te_caffe.pb.cc)
+# set(caffe_dir ${CMAKE_CURRENT_SOURCE_DIR})
+# set(dest_dir  ${CMAKE_CURRENT_BINARY_DIR})
 
 FILE(GLOB_RECURSE CAFFE_SRCS "*.cpp")
 
+protobuf_generate_cpp(proto_srcs proto_hdrs ${caffe_dir}/te_caffe.proto)
 # ADD_CUSTOM_COMMAND(OUTPUT ${caffe_proto_cc}
 #                    COMMAND mkdir -p ${dest_dir}
 #                    COMMAND protoc --cpp_out=${dest_dir} --proto_path=${caffe_dir} ${caffe_dir}/te_caffe.proto
 #                    DEPENDS ${caffe_dir}/te_caffe.proto)
 
-ADD_LIBRARY(${SERIALIZER_TARGET} SHARED ${CAFFE_SRCS} ${caffe_proto_cc})
-
-
-ADD_CUSTOM_TARGET(caffe_proto_target DEPENDS ${caffe_proto_cc})
-
-ADD_DEPENDENCIES(${SERIALIZER_TARGET} caffe_proto_target)
-
-
+ADD_LIBRARY(${SERIALIZER_TARGET} SHARED ${CAFFE_SRCS} ${proto_srcs})
 
 include_directories(${dest_dir})
 
@@ -41,7 +35,7 @@ install(TARGETS ${SERIALIZER_TARGET} DESTINATION lib)
 
 #below is for static library
 
-ADD_LIBRARY(${SERIALIZER_TARGET}-static STATIC ${CAFFE_SRCS} ${caffe_proto_cc})
+ADD_LIBRARY(${SERIALIZER_TARGET}-static STATIC ${CAFFE_SRCS} ${proto_srcs})
 SET_TARGET_PROPERTIES(${SERIALIZER_TARGET}-static PROPERTIES OUTPUT_NAME  ${SERIALIZER_TARGET})
 target_link_libraries(${SERIALIZER_TARGET}-static ${PROTOBUF_LIB} )
 

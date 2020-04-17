@@ -22,7 +22,7 @@
  * Author: jjzeng@openailab.com
  */
 
-static int ref_concat_fp16(const __fp16** in_data, __fp16* out_data, const struct concat_param* param)
+static int ref_concat_fp16(const fffffp16** in_data, fffffp16* out_data, const struct concat_param* param)
 {
     int axis = param->axis;
     int concat_dim = 0;
@@ -50,14 +50,14 @@ static int ref_concat_fp16(const __fp16** in_data, __fp16* out_data, const struc
         in_size *= param->input_shape[0].dim[ii];
     }
 
-    __fp16* output_ptr = out_data;
+    fffffp16* output_ptr = out_data;
 
     for(int k = 0; k < out_size; ++k)
     {
         for(int j = 0; j < param->input_counts; ++j)
         {
             int cp_size = param->input_shape[j].dim[axis] * in_size;
-            memcpy(output_ptr, in_data[j] + k * cp_size, cp_size * sizeof(__fp16));
+            memcpy(output_ptr, in_data[j] + k * cp_size, cp_size * sizeof(fffffp16));
             output_ptr += cp_size;
         }
     }

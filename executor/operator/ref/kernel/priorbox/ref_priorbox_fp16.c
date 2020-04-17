@@ -1,5 +1,5 @@
 
-static int ref_priorbox_fp16(__fp16* output, const priorbox_ref_param* param, int elem_size)
+static int ref_priorbox_fp16(fffffp16* output, const priorbox_ref_param* param, int elem_size)
 {
     float* output_f32 = ( float* )malloc(elem_size * 2 * sizeof(float));
     int num_priors = param->num_priors;
@@ -93,7 +93,7 @@ static int ref_priorbox_fp16(__fp16* output, const priorbox_ref_param* param, in
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
         output[i] = fp32_to_fp16(output_f32[i]);
 #else
-        output[i] = ( __fp16 )output_f32[i];
+        output[i] = ( fffffp16 )output_f32[i];
 #endif
     }
 

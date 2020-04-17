@@ -1,5 +1,5 @@
 
-static inline void calc_sum_fp16(const __fp16* input, __fp16* sum, int layout, int c, int h, int w, int cur_ch,
+static inline void calc_sum_fp16(const fffffp16* input, fffffp16* sum, int layout, int c, int h, int w, int cur_ch,
                                  int start_h, int start_w, int end_h, int end_w)
 {
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
@@ -26,7 +26,7 @@ static inline void calc_sum_fp16(const __fp16* input, __fp16* sum, int layout, i
 #endif
 }
 
-static inline void calc_max_fp16(const __fp16* input, __fp16* max, int layout, int c, int h, int w, int cur_ch,
+static inline void calc_max_fp16(const fffffp16* input, fffffp16* max, int layout, int c, int h, int w, int cur_ch,
                                  int start_h, int start_w, int end_h, int end_w)
 {
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
@@ -50,7 +50,7 @@ static inline void calc_max_fp16(const __fp16* input, __fp16* max, int layout, i
     *max = fp32_to_fp16(max_f);
 #else
     *max = 0.0f;
-    __fp16 tmp = 0.0f;
+    fffffp16 tmp = 0.0f;
     if(layout == 0)
         *max = input[cur_ch * h * w + start_h * w + start_w];
     else
@@ -70,14 +70,14 @@ static inline void calc_max_fp16(const __fp16* input, __fp16* max, int layout, i
 #endif
 }
 
-static int ref_pooling_fp16(const __fp16* input, __fp16* output, struct op_data* param)
+static int ref_pooling_fp16(const fffffp16* input, fffffp16* output, struct op_data* param)
 {
     int input_chw = param->channel * param->input[0] * param->input[1];
     int output_chw = param->channel * param->output[0] * param->output[1];
 
     for(int n = 0; n < param->batch; n++)
     {
-        const __fp16* input_cur = input + n * input_chw;
+        const fffffp16* input_cur = input + n * input_chw;
         for(int c = 0; c < param->channel; c++)
         {
             for(int ph = 0; ph < param->output[0]; ph++)
@@ -113,14 +113,14 @@ static int ref_pooling_fp16(const __fp16* input, __fp16* output, struct op_data*
 
                     if(param->method == 0)
                     {
-                        __fp16 max;
+                        fffffp16 max;
                         calc_max_fp16(input_cur, &max, param->layout, param->channel, param->input[0], param->input[1],
                                       c, h_start, w_start, h_end, w_end);
                         output[offset] = max;
                     }
                     else if(param->method == 1)
                     {
-                        __fp16 sum;
+                        fffffp16 sum;
                         calc_sum_fp16(input_cur, &sum, param->layout, param->channel, param->input[0], param->input[1],
                                       c, h_start, w_start, h_end, w_end);
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8

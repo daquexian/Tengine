@@ -27,7 +27,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-int ref_logistic_fp16(__fp16* input, __fp16* output,op_data* op_param)
+int ref_logistic_fp16(fffffp16* input, fffffp16* output,op_data* op_param)
 {
      for(int i = 0; i < op_param->out_size; i++)
     {

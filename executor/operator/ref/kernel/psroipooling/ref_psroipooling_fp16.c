@@ -1,11 +1,11 @@
-static int ref_psroipooling_fp16(__fp16* featmap, __fp16* roi, __fp16* output, psroipooling_ref_param* param)
+static int ref_psroipooling_fp16(fffffp16* featmap, fffffp16* roi, fffffp16* output, psroipooling_ref_param* param)
 {
     int pool_hw = param->out_h * param->out_w;
     int output_dim = param->output_dim;
 
     for(int n = 0; n < param->num_rois; ++n)
     {
-        __fp16* roi_ptr = roi + n * 4;
+        fffffp16* roi_ptr = roi + n * 4;
         int roi_x0 = round(fp16_to_fp32(roi_ptr[0]) * param->spatial_scale);
         int roi_y0 = round(fp16_to_fp32(roi_ptr[1]) * param->spatial_scale);
         int roi_x1 = round(fp16_to_fp32(roi_ptr[2]) * param->spatial_scale);
@@ -16,12 +16,12 @@ static int ref_psroipooling_fp16(__fp16* featmap, __fp16* roi, __fp16* output, p
         float bin_h = ( float )roi_h / ( float )param->out_h;
         for(int c = 0; c < output_dim; ++c)
         {
-            __fp16* outptr = output + c * pool_hw;
+            fffffp16* outptr = output + c * pool_hw;
             for(int h = 0; h < param->out_h; ++h)
             {
                 for(int w = 0; w < param->out_w; ++w)
                 {
-                    __fp16* inptr = featmap + (c*param->out_h + h)*param->out_w + w;
+                    fffffp16* inptr = featmap + (c*param->out_h + h)*param->out_w + w;
 
                     int hstart = floor(roi_y1 + (float)(h) * bin_h);
                     int wstart = floor(roi_x1 + (float)(w) * bin_w);

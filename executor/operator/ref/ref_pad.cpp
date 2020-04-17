@@ -127,7 +127,7 @@ bool RefPad::Run(Node* node)
     if(param.mode == 0)
     {
         param.cv_f32 = op_param->value;
-        param.cv_f16 = ( __fp16 )fp32_to_fp16(op_param->value);
+        param.cv_f16 = ( fffffp16 )fp32_to_fp16(op_param->value);
         param.cv_int8 = op_param->value;
         param.cv_uint8 = op_param->value;
     }

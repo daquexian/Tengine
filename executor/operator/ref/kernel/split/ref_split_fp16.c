@@ -1,4 +1,4 @@
-static int ref_split_fp16(const __fp16* in_data, __fp16** out_data, struct split_param* param)
+static int ref_split_fp16(const fffffp16* in_data, fffffp16** out_data, struct split_param* param)
 {
     int slice_axis = param->axis;
     int num_slices = 1;
@@ -16,7 +16,7 @@ static int ref_split_fp16(const __fp16* in_data, __fp16** out_data, struct split
     unsigned int out_num = param->output_counts;
     for(unsigned int i = 0; i < out_num; i++)
     {
-        __fp16* output = ( __fp16* )out_data[i];
+        fffffp16* output = ( fffffp16* )out_data[i];
         int out_slice = 0;
         // if(param->squeeze_dim == 1)
         // {
@@ -31,7 +31,7 @@ static int ref_split_fp16(const __fp16* in_data, __fp16** out_data, struct split
         {
             int in_offset = (n * in_slice + slice_index) * slice_size;
             int out_offset = n * out_slice * slice_size;
-            memcpy(output + out_offset, in_data + in_offset, slice_size * out_slice * sizeof(__fp16));
+            memcpy(output + out_offset, in_data + in_offset, slice_size * out_slice * sizeof(fffffp16));
         }
         slice_index += out_slice;
     }

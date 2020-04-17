@@ -319,6 +319,8 @@ tm_uoffset_t TmSerializer2::SaveTmSubgraph(void* const start_ptr, tm_uoffset_t* 
 
     /* Write the nodes */
     size_t vector_size = sizeof(tm_size_t) + sizeof(tm_uoffset_t) * graph->seq_nodes.size();
+    std::cout << __LINE__ << std::endl;
+    std::cout << graph->seq_nodes.size() << std::endl;
     TM2_Vector_offsets* v_nodes = ( TM2_Vector_offsets* )malloc(vector_size);
     v_nodes->v_num = graph->seq_nodes.size();
     for(unsigned int i = 0; i < graph->seq_nodes.size(); i++)
@@ -339,7 +341,13 @@ tm_uoffset_t TmSerializer2::SaveTmSubgraph(void* const start_ptr, tm_uoffset_t* 
     /* Write the tensors */
     vector_size = sizeof(tm_size_t) + sizeof(tm_uoffset_t) * tensor_num;
     TM2_Vector_offsets* v_tensors = ( TM2_Vector_offsets* )malloc(vector_size);
+    if (!v_tensors) {
+        LOG_ERROR() << "malloc failed at " << __LINE__ << "\n";
+        return 0;
+    }
     v_tensors->v_num = tensor_num;
+    std::cout << __LINE__ << std::endl;
+    std::cout << tensor_num << std::endl;
     for(unsigned int i = 0; i < tensor_num; i++)
     {
         Tensor* p_tensor = tensor_ptrs[i];
@@ -358,6 +366,10 @@ tm_uoffset_t TmSerializer2::SaveTmSubgraph(void* const start_ptr, tm_uoffset_t* 
     /* Write the buffers */
     vector_size = sizeof(tm_size_t) + sizeof(tm_uoffset_t) * buffer_num;
     TM2_Vector_offsets* v_buffers = ( TM2_Vector_offsets* )malloc(vector_size);
+    if (!v_buffers) {
+        LOG_ERROR() << "malloc failed at " << __LINE__ << "\n";
+        return 0;
+    }
     v_buffers->v_num = buffer_num;
     for(unsigned int i = 0; i < buffer_num; i++)
     {
@@ -383,6 +395,11 @@ tm_uoffset_t TmSerializer2::SaveTmSubgraph(void* const start_ptr, tm_uoffset_t* 
     /* Write the vector of input indices */
     vector_size = sizeof(tm_size_t) + sizeof(uint32_t) * graph->input_nodes.size();
     TM2_Vector_indices* v_input_indices = ( TM2_Vector_indices* )malloc(vector_size);
+    if (!v_input_indices) {
+        LOG_ERROR() << "malloc failed at " << __LINE__ << "\n";
+        return 0;
+    }
+
     v_input_indices->v_num = graph->input_nodes.size();
     for(unsigned int i = 0; i < graph->input_nodes.size(); i++)
     {
@@ -393,6 +410,10 @@ tm_uoffset_t TmSerializer2::SaveTmSubgraph(void* const start_ptr, tm_uoffset_t* 
     /* Write the vector of output indices */
     vector_size = sizeof(tm_size_t) + sizeof(uint32_t) * graph->output_nodes.size();
     TM2_Vector_indices* v_output_indices = ( TM2_Vector_indices* )malloc(vector_size);
+    if (!v_output_indices) {
+        LOG_ERROR() << "malloc failed at " << __LINE__ << "\n";
+        return 0;
+    }
     v_output_indices->v_num = graph->output_nodes.size();
     for(unsigned int i = 0; i < graph->output_nodes.size(); i++)
     {
@@ -429,6 +450,7 @@ bool TmSerializer2::SaveModelIntoMem(void* start_ptr, Graph* graph, uint32_t* tm
     TM2_Model tm_model;
     tm_model.orig_format = graph->GetModelFormat();
     tm_model.sub_format = 0;
+
 
     if(tm_with_string)
     {
@@ -745,7 +767,6 @@ bool TmSerializerRegisterOpLoader2(void)
 
     for(int i = 0; i < TM2_OPTYPE_NUM; i++)
     {
-        p_tengine->RegisterOpLoadMethod(GetOpStr(i), op_load_t(LoadTmOpFunc(i)));
         p_tengine->RegisterOpSaveMethod(GetOpStr(i), op_save_t(SaveTmOpFunc(i)));
     }
 

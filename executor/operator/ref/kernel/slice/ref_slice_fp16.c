@@ -22,7 +22,7 @@
  * Author: ruizhang@openailab.com
  */
 
-static int ref_slice_fp16(const __fp16* in_data, __fp16** out_data, const struct slice_param* param)
+static int ref_slice_fp16(const fffffp16* in_data, fffffp16** out_data, const struct slice_param* param)
 {
-    return ref_slice_common(( const int8_t* )in_data, ( int8_t** )out_data, sizeof(__fp16), param);
+    return ref_slice_common(( const int8_t* )in_data, ( int8_t** )out_data, sizeof(fffffp16), param);
 }

@@ -1,4 +1,4 @@
-static int ref_pad_fp16(__fp16* data, __fp16* out_data, pad_param* param)
+static int ref_pad_fp16(fffffp16* data, fffffp16* out_data, pad_param* param)
 {
     if(param->mode == 0)
     {

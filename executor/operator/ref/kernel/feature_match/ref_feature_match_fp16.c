@@ -1,5 +1,5 @@
 
-static int ref_fm_fp16(const __fp16* input, __fp16* output, const __fp16* weight, const __fp16* bias, feature_match_data* param)
+static int ref_fm_fp16(const fffffp16* input, fffffp16* output, const fffffp16* weight, const fffffp16* bias, feature_match_data* param)
 {
     int batch = param->batch;
     int hidden = param->hidden;
@@ -22,7 +22,7 @@ static int ref_fm_fp16(const __fp16* input, __fp16* output, const __fp16* weight
 
             output[n * out_number + i] = fp32_to_fp16(tmp);
 #else
-            __fp16 tmp = bias ? bias[i] : 0.0;
+            fffffp16 tmp = bias ? bias[i] : 0.0;
             for(j = 0; j < hidden; ++j)
             {
                 // if(param->need_trans == 0)

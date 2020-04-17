@@ -1,4 +1,4 @@
-static int ref_batchnorm_fp16(__fp16* input, __fp16* output, const ref_batchnorm_param* param)
+static int ref_batchnorm_fp16(fffffp16* input, fffffp16* output, const ref_batchnorm_param* param)
 {
     float* scale_mean = param->scale_mean;
     float* scale_var_inv = param->scale_var_inv;
@@ -39,7 +39,7 @@ static int ref_batchnorm_fp16(__fp16* input, __fp16* output, const ref_batchnorm
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
                     float data = fp16_to_fp32(input[offset]);
 #else
-                    __fp16 data = input[offset];
+                    fffffp16 data = input[offset];
 #endif
                     out_f32[offset] = data * s_val2 + s_val1;
                 }
@@ -51,7 +51,7 @@ static int ref_batchnorm_fp16(__fp16* input, __fp16* output, const ref_batchnorm
 #if !defined(__ARM_ARCH) || __ARM_ARCH < 8
         output[j] = fp32_to_fp16(out_f32[j]);
 #else
-        output[j] = ( __fp16 )out_f32[j];
+        output[j] = ( fffffp16 )out_f32[j];
 #endif
     }
     free(out_f32);
