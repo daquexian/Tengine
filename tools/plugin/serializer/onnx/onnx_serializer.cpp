@@ -73,9 +73,10 @@ bool OnnxSerializer::LoadModel(const std::vector<std::string>& file_list, Static
 bool OnnxSerializer::LoadModel(const std::vector<const void*>& addr_list, const std::vector<int>& size_list,
                            StaticGraph* graph, bool transfer_mem)
 {
-    std::string onnx_pb_buf(static_cast<const char *>(addr_list[0]), size_list[0]);
     onnx::ModelProto model;
-    bool s1 = model.ParseFromString(onnx_pb_buf);
+    bool s1 = model.ParseFromArray(addr_list[0], size_list[0]);
+    // FIXME: it's very bad
+    free(const_cast<void *>(addr_list[0]));
     if (!s1) {
         return false;
     }
