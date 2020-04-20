@@ -75,8 +75,6 @@ bool OnnxSerializer::LoadModel(const std::vector<const void*>& addr_list, const 
 {
     onnx::ModelProto model;
     bool s1 = model.ParseFromArray(addr_list[0], size_list[0]);
-    // FIXME: it's very bad
-    free(const_cast<void *>(addr_list[0]));
     if (!s1) {
         return false;
     }
