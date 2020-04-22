@@ -32,6 +32,7 @@
 #include <google/protobuf/text_format.h>
 #include <google/protobuf/message.h>
 
+#include "static_graph.hpp"
 #include "tengine_c_api.h"
 #include "data_type.hpp"
 #include "type_name.hpp"
@@ -366,8 +367,9 @@ bool CaffeBuddy::LoadModel(const std::vector<const void*>& addr_list, const std:
     if(addr_list.size() != GetFileNum())
         return false;
 
+    std::string txt_str(static_cast<const char *>(addr_list[0]), size_list[0]);
     /* the first one is  proto file, the second one is parameter file */
-    bool s1 = google::protobuf::TextFormat::ParseFromString(( const char* )addr_list[0], &test_net);
+    bool s1 = google::protobuf::TextFormat::ParseFromString(txt_str, &test_net);
     if(!s1)
     {
         LOG_ERROR() << "failed to parse proto file\n";
