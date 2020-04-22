@@ -204,6 +204,8 @@ public:
     {
         return 1;
     }
+    bool LoadModel(const std::vector<const void*>& addr_list, const std::vector<int>& size_list,
+                   StaticGraph* static_graph, bool transfer_mem) override;
     bool LoadConstTensor(const std::string& fname, StaticTensor* const_tensor) override
     {
         return false;

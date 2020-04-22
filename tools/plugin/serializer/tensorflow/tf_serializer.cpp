@@ -116,6 +116,28 @@ void TFSerializer::DumpTFGraph(TFGraph& tf_graph)
     }
 }
 
+bool TFSerializer::LoadModel(const std::vector<const void*>& addr_list, const std::vector<int>& size_list,
+                           StaticGraph* graph, bool transfer_mem)
+{
+    tensorflow::GraphDef tf_net;
+
+    std::cout << size_list[0] << std::endl;
+
+    bool s1 = tf_net.ParseFromArray(addr_list[0], size_list[0]);
+
+    if(!s1)
+        return false;
+
+    SetGraphSource(graph, "mem");
+    SetGraphSourceFormat(graph, "tensorflow");
+    SetGraphConstTensorFile(graph, "mem");
+    SetGraphLayout(graph, TENGINE_LAYOUT_NHWC);
+    SetModelLayout(graph, TENGINE_LAYOUT_NHWC);
+    SetModelFormat(graph, MODEL_FORMAT_TENSORFLOW);
+
+    return LoadGraph(tf_net, graph);
+}
+
 bool TFSerializer::LoadModel(const std::vector<std::string>& file_list, StaticGraph* graph)
 {
     tensorflow::GraphDef tf_net;
@@ -1719,7 +1741,8 @@ bool TFSerializer::GenerateStaticGraph(TFGraph& tf_graph, StaticGraph* graph)
     int node_number = tf_graph.seq_nodes.size();
     int i;
 
-    bool debug_graph = false;
+    // bool debug_graph = false;
+    bool debug_graph = true;
     const char* debug_env = std::getenv("DEBUG_TF");
     if((debug_env) && (debug_env[0] == '1'))
     {
