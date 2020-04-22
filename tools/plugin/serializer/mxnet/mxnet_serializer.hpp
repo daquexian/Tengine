@@ -54,6 +54,19 @@ struct MxnetParam
     uint8_t* raw_data;
 };
 
+struct membuf: std::streambuf {
+    membuf(char const* base, size_t size) {
+        char* p(const_cast<char*>(base));
+        this->setg(p, p, p + size);
+    }
+};
+struct imemstream: virtual membuf, std::istream {
+    imemstream(char const* base, size_t size)
+        : membuf(base, size)
+        , std::istream(static_cast<std::streambuf*>(this)) {
+    }
+};
+
 class MxnetSerializer : public Serializer
 {
 public:
@@ -71,6 +84,7 @@ public:
     }
 
     bool LoadModel(const std::vector<std::string>& file_list, StaticGraph* graph) override;
+    bool LoadModel(const std::vector<const void*>& addr_list, const std::vector<int>& size_list, StaticGraph* graph, bool transfer_mem) override;
 
     bool LoadConstTensor(const std::string& fname, StaticTensor* const_tensor) override
     {
@@ -82,8 +96,8 @@ public:
     }
 
 protected:
-    bool LoadTextFile(const char* fname, std::vector<MxnetNode>& nodelist);
-    bool LoadBinaryFile(const char* fname, std::vector<MxnetParam>& paramlist);
+    bool LoadTextFile(imemstream &is, std::vector<MxnetNode>& nodelist);
+    bool LoadBinaryFile(imemstream &is, std::vector<MxnetParam>& paramlist);
 
     bool LoadGraph(StaticGraph* graph, const std::vector<MxnetNode>& nodelist,
                    const std::vector<MxnetParam>& paramlist);

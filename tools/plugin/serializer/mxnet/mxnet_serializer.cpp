@@ -137,7 +137,7 @@ static void ParseInputList(const std::string& str, std::vector<int>& inputs)
 #endif
 }
 
-bool MxnetSerializer::LoadTextFile(const char* fname, std::vector<MxnetNode>& nodelist)
+bool MxnetSerializer::LoadTextFile(imemstream &is, std::vector<MxnetNode>& nodelist)
 {
     unsigned int nest = 0; /* 0 : out of define body
                               1 : in the define body
@@ -165,14 +165,14 @@ bool MxnetSerializer::LoadTextFile(const char* fname, std::vector<MxnetNode>& no
     static const char start_attr_block3[] = "\"attrs\": {";
     static const char end_attr_block[] = "},";
 
-    std::ifstream is(fname, std::ios::in);
-    if(!is.is_open())
-    {
-        LOG_ERROR() << "Cannot open the json file: " << fname << "\n";
-        set_tengine_errno(ENOENT);
-        return false;
-    }
-
+    // std::ifstream is(fname, std::ios::in);
+    // if(!is.is_open())
+    // {
+    //     LOG_ERROR() << "Cannot open the json file: " << fname << "\n";
+    //     set_tengine_errno(ENOENT);
+    //     return false;
+    // }
+    //
     MxnetNode node;
     unsigned int cnt_unknown_name = 1;
     unsigned int line_no = 0;
@@ -325,11 +325,11 @@ bool MxnetSerializer::LoadTextFile(const char* fname, std::vector<MxnetNode>& no
         }
     }
 
-    is.close();
+    // is.close();
     return ret;
 }
 
-bool MxnetSerializer::LoadBinaryFile(const char* fname, std::vector<MxnetParam>& paramlist)
+bool MxnetSerializer::LoadBinaryFile(imemstream &is, std::vector<MxnetParam>& paramlist)
 {
     typedef struct
     {
@@ -347,14 +347,6 @@ bool MxnetSerializer::LoadBinaryFile(const char* fname, std::vector<MxnetParam>&
         uint32_t dev_id;
         uint32_t type_flag;
     } DataBlock;
-
-    std::ifstream is(fname, std::ios::in | std::ios::binary);
-    if(!is.is_open())
-    {
-        LOG_ERROR() << "Cannot open the param file: " << fname << "\n";
-        set_tengine_errno(ENOENT);
-        return false;
-    }
 
     HeadBlock header;
     is.read(( char* )&header, sizeof(uint64_t) * 3);
@@ -445,32 +437,35 @@ bool MxnetSerializer::LoadBinaryFile(const char* fname, std::vector<MxnetParam>&
     }
 #endif
 
-    is.close();
+    // is.close();
     return true;
 }
 
-bool MxnetSerializer::LoadModel(const std::vector<std::string>& file_list, StaticGraph* graph)
+bool MxnetSerializer::LoadModel(const std::vector<const void*>& addr_list, const std::vector<int>& size_list,
+                           StaticGraph* graph, bool transfer_mem)
 {
-    if(file_list.size() != GetFileNum())
+    if(addr_list.size() != GetFileNum())
         return false;
 
     std::vector<MxnetNode> nodelist;
-    if(!LoadTextFile(file_list[0].c_str(), nodelist))
+    imemstream text_memstream(static_cast<const char*>(addr_list[0]), size_list[0]);
+    if(!LoadTextFile(text_memstream, nodelist))
     {
-        LOG_ERROR() << "Parse text file " << file_list[0].c_str() << " failed\n";
+        LOG_ERROR() << "Parse text file failed\n";
         return false;
     }
 
     std::vector<MxnetParam> paramlist;
-    if(!LoadBinaryFile(file_list[1].c_str(), paramlist))
+    imemstream bin_memstream(static_cast<const char*>(addr_list[1]), size_list[1]);
+    if(!LoadBinaryFile(bin_memstream, paramlist))
     {
-        LOG_ERROR() << "Parse binary file " << file_list[1].c_str() << " failed\n";
+        LOG_ERROR() << "Parse binary file failed\n";
         return false;
     }
 
-    SetGraphSource(graph, file_list[1]);
+    SetGraphSource(graph, "convertmodel.com");
     SetGraphSourceFormat(graph, "mxnet");
-    SetGraphConstTensorFile(graph, file_list[1]);
+    SetGraphConstTensorFile(graph, "convertmodel.com");
     SetGraphLayout(graph, TENGINE_LAYOUT_NCHW);
     SetModelLayout(graph, TENGINE_LAYOUT_NCHW);
     SetModelFormat(graph, MODEL_FORMAT_MXNET);
@@ -482,6 +477,43 @@ bool MxnetSerializer::LoadModel(const std::vector<std::string>& file_list, Stati
     }
 
     return res;
+
+}
+
+bool MxnetSerializer::LoadModel(const std::vector<std::string>& file_list, StaticGraph* graph)
+{
+    // if(file_list.size() != GetFileNum())
+    //     return false;
+    //
+    // std::vector<MxnetNode> nodelist;
+    // if(!LoadTextFile(file_list[0].c_str(), nodelist))
+    // {
+    //     LOG_ERROR() << "Parse text file " << file_list[0].c_str() << " failed\n";
+    //     return false;
+    // }
+    //
+    // std::vector<MxnetParam> paramlist;
+    // if(!LoadBinaryFile(file_list[1].c_str(), paramlist))
+    // {
+    //     LOG_ERROR() << "Parse binary file " << file_list[1].c_str() << " failed\n";
+    //     return false;
+    // }
+    //
+    // SetGraphSource(graph, file_list[1]);
+    // SetGraphSourceFormat(graph, "mxnet");
+    // SetGraphConstTensorFile(graph, file_list[1]);
+    // SetGraphLayout(graph, TENGINE_LAYOUT_NCHW);
+    // SetModelLayout(graph, TENGINE_LAYOUT_NCHW);
+    // SetModelFormat(graph, MODEL_FORMAT_MXNET);
+    //
+    // bool res = LoadGraph(graph, nodelist, paramlist);
+    // for(std::size_t ii = 0; ii < paramlist.size(); ++ii)
+    // {
+    //     std::free(paramlist[ii].raw_data);
+    // }
+    //
+    // return res;
+    return false;
 }
 
 bool MxnetSerializer::LoadConstTensor(StaticGraph* graph, const std::vector<MxnetNode>& nodelist,
