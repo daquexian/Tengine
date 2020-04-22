@@ -389,10 +389,10 @@ printf("Support online report\n");
     printf("-------------------------------------------------------");
 }
 
-extern void operator_plugin_init(void);
-extern void serializer_plugin_init(void);
-extern void executor_plugin_init(void);
-extern void driver_plugin_init(void);
+extern int operator_plugin_init(void);
+extern int serializer_plugin_init(void);
+extern int executor_plugin_init(void);
+extern int driver_plugin_init(void);
 #ifdef ALL_IN_STATIC_LIB
 #ifdef BUILD_TOOLS
 int register_hclcpu_ops(void){}
@@ -469,9 +469,13 @@ int hclcpu_plugin_init(bool ignore_failure)
 }
 
 int InitPluginForConverter() {
-    operator_plugin_init();
-    serializer_plugin_init();
-    executor_plugin_init();
+    int ret0 = operator_plugin_init();
+    if (ret0 != 0) { return ret0; }
+    int ret1 = serializer_plugin_init();
+    if (ret1 != 0) { return ret1; }
+    int ret2 = executor_plugin_init();
+    if (ret2 != 0) { return ret2; }
+    return 0;
 }
 
 int InitAllPlugin(void)

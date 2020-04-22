@@ -763,7 +763,7 @@ bool TmSerializerRegisterOpLoader2(void)
 
     for(int i = 0; i < TM2_OPTYPE_NUM; i++)
     {
-        p_tengine->RegisterOpLoadMethod(GetOpStr(i), op_save_t(SaveTmOpFunc(i)));
+        p_tengine->RegisterOpSaveMethod(GetOpStr(i), op_save_t(SaveTmOpFunc(i)));
     }
 
     return true;

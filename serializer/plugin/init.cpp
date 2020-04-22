@@ -49,7 +49,9 @@ int serializer_plugin_init(void)
     //auto factory = SerializerFactory::GetFactory();
 
 #ifdef CONFIG_TENGINE_SERIALIZER
-    TmSerializerInit();
+    if (!TmSerializerInit()) {
+        return 1;
+    }
 
 /*#define SrcTmName "src_tm"
 
