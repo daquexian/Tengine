@@ -254,9 +254,10 @@ inline void free_list(list *l)
     free(l);
 }
 
-inline list* read_cfg(const char* filename)
+inline list* read_cfg(const void *buf, size_t buflen)
 {
-    FILE *file = fopen(filename, "r");
+    // FILE *file = fopen(filename, "r");
+    FILE* file = fmemopen(const_cast<void *>(buf), buflen, "rb");
     //if(file == 0) file_error(filename);
     char *line;
     int nu = 0;

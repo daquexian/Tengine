@@ -24,9 +24,10 @@
 namespace TEngine {
 
 using op_load_t = std::function<bool(StaticGraph* graph, StaticNode* node,std::vector<std::string> &tensor_name_map,list *options,int index,FILE *fp)>;
-bool DarkNetSerializer::ConstructGraph(StaticGraph* graph,const char*weight_file,list* sections)
+bool DarkNetSerializer::ConstructGraph(StaticGraph* graph, const void *buf, size_t buflen,list* sections)
 {
-    FILE *fp = fopen(weight_file,"rb");
+    FILE* fp = fmemopen(const_cast<void *>(buf), buflen, "rb");
+    // FILE *fp = fopen(weight_file,"rb");
     int major;
     int minor;
     int revision;
@@ -125,28 +126,49 @@ bool DarkNetSerializer::ConstructGraph(StaticGraph* graph,const char*weight_file
     return true;
 }
 
-bool DarkNetSerializer::LoadModel(const std::vector<std::string>& file_list, StaticGraph* graph)
-{
-    if(file_list.size() != GetFileNum())
+bool DarkNetSerializer::LoadModel(const std::vector<const void*>& addr_list, const std::vector<int>& size_list,
+        StaticGraph* graph, bool transfer_mem) {
+    if(addr_list.size() != GetFileNum())
         return false;
 
-    const char *cfg_file = file_list[0].c_str();
-    list *sections = read_cfg(cfg_file);
+    list *sections = read_cfg(addr_list[0], size_list[0]);
     // Read the weights get
-    const char * weight_file = file_list[1].c_str();
-    if(nullptr == weight_file)
-        return false;
     // Construct the Graph
-    ConstructGraph(graph,weight_file,sections);
+    ConstructGraph(graph,addr_list[1], size_list[1],sections);
     
     free_list(sections);
-    SetGraphSource(graph, file_list[0]);
+    SetGraphSource(graph, "convertmodel.com");
     SetGraphSourceFormat(graph, "darknet");
     SetGraphLayout(graph, TENGINE_LAYOUT_NCHW);
     SetModelLayout(graph, TENGINE_LAYOUT_NCHW);
     SetModelFormat(graph, MODEL_FORMAT_DARKNET);
 
     return true;
+}
+
+bool DarkNetSerializer::LoadModel(const std::vector<std::string>& file_list, StaticGraph* graph)
+{
+    // if(file_list.size() != GetFileNum())
+    //     return false;
+    //
+    // const char *cfg_file = file_list[0].c_str();
+    // list *sections = read_cfg(cfg_file);
+    // // Read the weights get
+    // const char * weight_file = file_list[1].c_str();
+    // if(nullptr == weight_file)
+    //     return false;
+    // // Construct the Graph
+    // ConstructGraph(graph,weight_file,sections);
+    //
+    // free_list(sections);
+    // SetGraphSource(graph, file_list[0]);
+    // SetGraphSourceFormat(graph, "darknet");
+    // SetGraphLayout(graph, TENGINE_LAYOUT_NCHW);
+    // SetModelLayout(graph, TENGINE_LAYOUT_NCHW);
+    // SetModelFormat(graph, MODEL_FORMAT_DARKNET);
+    //
+    // return true;
+    return false;
 }
 static bool LoadConvBlob(StaticGraph *graph,StaticNode* node,std::vector<int> &weight_dims,int batch_norm,FILE* fp)
 {
