@@ -42,6 +42,19 @@ using LiteGraph = TFLiteSerializer::LiteGraph;
 
 using op_load_t = std::function<bool(LiteNode* node, LiteGraph* lite_graph, StaticGraph* graph)>;
 
+bool TFLiteSerializer::LoadModel(const std::vector<const void*>& addr_list, const std::vector<int>& size_list, StaticGraph* graph, bool transfer_mem)
+{
+    SetGraphSource(graph, "convertmodel.com");
+    SetGraphSourceFormat(graph, "tflite");
+    SetGraphLayout(graph, TENGINE_LAYOUT_NHWC);
+    SetModelLayout(graph, TENGINE_LAYOUT_NHWC);
+    SetModelFormat(graph, MODEL_FORMAT_TFLITE);
+
+    bool ret = LoadModelFromMem(static_cast<char *>(const_cast<void *>(addr_list[0])), size_list[0], graph);
+
+    return ret;
+}
+
 bool TFLiteSerializer::LoadModel(const std::vector<std::string>& file_list, StaticGraph* graph)
 {
     if(file_list.size() != GetFileNum())

@@ -70,6 +70,7 @@ public:
     };
 
     bool LoadModel(const std::vector<std::string>& file_list, StaticGraph* static_graph) override;
+    bool LoadModel(const std::vector<const void*>& addr_list, const std::vector<int>& size_list, StaticGraph* graph, bool transfer_mem) override;
 
     unsigned int GetFileNum(void) final
     {
