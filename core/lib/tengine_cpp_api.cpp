@@ -30,6 +30,7 @@
 #include <arm_neon.h>
 #endif
 #include "tengine_cpp_api.h"
+#include "cpu_device.h"
 
 namespace tengine {
 bool b_tengine_inited = false;
@@ -76,6 +77,56 @@ int Net::load_model(context_t context, const char* model_format, const char* mod
         return -1;
     }
 
+    return 0;
+}
+
+int Net::set_kernel_mode(EKernelMode kernel_mode)
+{
+	const char* MODE_STR = "KERNEL_MODE";
+    const char* PER_CHANNEL = "PER_CHANNEL";
+    switch( kernel_mode)
+    {
+        case eKernelMode_Float32:
+        {
+            setenv(MODE_STR ,"1",1);
+            unsetenv(PER_CHANNEL);
+            break;
+        }
+        case eKernelMode_Int8:
+        {
+            setenv(MODE_STR ,"2",1);
+            unsetenv(PER_CHANNEL);
+            break;
+        }
+        case eKernelMode_Int8Perchannel:
+        {
+            setenv(MODE_STR ,"2",1);
+            setenv("PER_CHANNEL" ,"1",1);
+            break;
+        }
+    }
+
+    return 0;
+}
+
+int Net::switch_wino(bool is_open)
+{
+	const char* WINO_STR = "NO_WINO";
+	if( is_open )
+	{
+		unsetenv(WINO_STR);
+	}
+	else
+	{
+		setenv(WINO_STR,"1",1);
+	}
+
+	return 0;
+}
+
+int Net::set_worker_cpu_list(const int* cpu_list,int num)
+{
+	set_working_cpu(cpu_list,num);
     return 0;
 }
 
@@ -198,14 +249,73 @@ int Net::input_tensor(std::string name, Tensor& t)
     return 0;
 }
 
+int Net::input_tensor(int node_index, int tensor_index, Tensor& t)
+{
+    int dims[4];
+
+    dims[0] = t.n;
+    dims[1] = t.c;
+    dims[2] = t.h;
+    dims[3] = t.w;
+
+    // printf("tengine cpp api : %s tensor_name:%s\n", __FUNCTION__,name.c_str());
+    tensor_t tensor = get_graph_input_tensor(graph, node_index, tensor_index);
+    if(tensor == NULL)
+    {
+        std::printf("Cannot find tensor node_index: %d, tensor_index: %d\n", node_index, tensor_index);
+        return -1;
+    }
+    int ret = set_tensor_buffer(tensor, ( void* )t.data, t.total() * t.elem_size);
+    if(ret < 0)
+    {
+        std::printf("Set buffer for tensor failed\n");
+        return -1;
+    }
+
+    set_tensor_shape(tensor, dims, 4);
+
+    return 0;
+}
+
 int Net::extract_tensor(std::string name, Tensor& t)
 {
-    // printf("tengine cpp api : %s\n", __FUNCTION__);
-
     tensor_t tensor = get_graph_tensor(graph, name.c_str());
     if(tensor == NULL)
     {
         std::printf("Cannot find output tensor , tensor_name: %s \n", name.c_str());
+        return -1;
+    }
+    int dims[4] = {0};
+    int dim_num = 4;
+    dim_num = get_tensor_shape(tensor, dims, dim_num);
+    if(dim_num < 0)
+    {
+        std::printf("Get tensor shape failed\n");
+        return -1;
+    }
+    // printf("tengine cpp api : %s dims: %d:%d:%d:%d\n", __FUNCTION__, dims[0], dims[1], dims[2], dims[3]);
+    // Tensor m;
+    if(dim_num == 4)
+        t.create(dims[3], dims[2], dims[1], 4);
+    else
+    {
+        /* code */
+    }
+
+    int buffer_size = get_tensor_buffer_size(tensor);
+    void* buffer = (get_tensor_buffer(tensor));
+    memcpy(t.data, buffer, buffer_size);
+
+    return 0;
+}
+
+int Net::extract_tensor(int node_index, int tensor_index, Tensor& t)
+{
+    tensor_t tensor = get_graph_output_tensor(graph, node_index, tensor_index);
+
+    if(tensor == NULL)
+    {
+        std::printf("Cannot find output tensor, node_index: %d, tensor_index: %d\n", node_index, tensor_index);
         return -1;
     }
     int dims[4] = {0};
@@ -494,6 +604,28 @@ void Tensor::create(int _w, int _h, int _c, size_t _elem_size, uint8_t _layout)
     h = _h;
     c = _c;
     n = 1;
+    elem_num = w * h * c * n;
+
+    if(total() > 0)
+    {
+        size_t totalsize = total() * elem_size;
+        data = malloc(totalsize);
+    }
+}
+
+void Tensor::create(int _n,int _w, int _h, int _c, size_t _elem_size, uint8_t _layout)
+{
+    if(w == _w && elem_size == _elem_size && _layout == layout)
+        return;
+
+    w = _w;
+    h = _h;
+    c = _c;
+    n = _n;
+
+    elem_size = _elem_size;
+    dim_num = 4;
+    layout = _layout;
     elem_num = w * h * c * n;
 
     if(total() > 0)
