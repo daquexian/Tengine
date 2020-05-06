@@ -469,12 +469,15 @@ int hclcpu_plugin_init(bool ignore_failure)
 }
 
 int InitPluginForConverter() {
-    int ret0 = operator_plugin_init();
-    if (ret0 != 0) { return ret0; }
-    int ret1 = serializer_plugin_init();
-    if (ret1 != 0) { return ret1; }
-    int ret2 = executor_plugin_init();
-    if (ret2 != 0) { return ret2; }
+    int ret;
+    ret = operator_plugin_init();
+    if (ret != 0) { return ret; }
+    ret = serializer_plugin_init();
+    if (ret != 0) { return ret; }
+    ret = executor_plugin_init();
+    if (ret != 0) { return ret; }
+    ret = driver_plugin_init();
+    if (ret != 0) { return ret; }
     return 0;
 }
 

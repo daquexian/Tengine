@@ -45,6 +45,15 @@ struct cpu_item
 
 int get_cpu_items(struct cpu_item** p_item)
 {
+#ifdef __EMSCRIPTEN__
+    struct cpu_item* cpu_item = NULL;
+    cpu_item = ( struct cpu_item* )malloc(sizeof(struct cpu_item) * 1);
+    cpu_item[0].cpu_id = 0;
+    cpu_item[0].max_freq = 100;
+    cpu_item[0].cluster_leader = 0;
+    *p_item = cpu_item;
+    return 1;
+#else
     char cpu_path[128];
     char file_path[128];
     struct cpu_item* cpu_item = NULL;
@@ -155,6 +164,7 @@ int get_cpu_items(struct cpu_item** p_item)
     *p_item = cpu_item;
 
     return i;
+#endif
 }
 
 #ifdef __ARM_ARCH
