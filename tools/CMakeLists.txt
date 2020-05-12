@@ -1,9 +1,9 @@
 if(CMAKE_TOOLCHAIN_FILE)
-set(LIBRARY_OUTPUT_PATH_ROOT ${CMAKE_BINARY_DIR} CACHE PATH "root for library output, set this to change where android libs are compiled to")
-# get absolute path, but get_filename_component ABSOLUTE only refer with source dir, so find_file here :(
-get_filename_component(CMAKE_TOOLCHAIN_FILE_NAME ${CMAKE_TOOLCHAIN_FILE} NAME)
-find_file(CMAKE_TOOLCHAIN_FILE ${CMAKE_TOOLCHAIN_FILE_NAME} PATHS ${CMAKE_SOURCE_DIR} NO_DEFAULT_PATH)
-message(STATUS "CMAKE_TOOLCHAIN_FILE = ${CMAKE_TOOLCHAIN_FILE}")
+    set(LIBRARY_OUTPUT_PATH_ROOT ${CMAKE_BINARY_DIR} CACHE PATH "root for library output, set this to change where android libs are compiled to")
+    # get absolute path, but get_filename_component ABSOLUTE only refer with source dir, so find_file here :(
+    get_filename_component(CMAKE_TOOLCHAIN_FILE_NAME ${CMAKE_TOOLCHAIN_FILE} NAME)
+    find_file(CMAKE_TOOLCHAIN_FILE ${CMAKE_TOOLCHAIN_FILE_NAME} PATHS ${CMAKE_SOURCE_DIR} NO_DEFAULT_PATH)
+    message(STATUS "CMAKE_TOOLCHAIN_FILE = ${CMAKE_TOOLCHAIN_FILE}")
 endif()
 
 cmake_minimum_required(VERSION 3.0)
@@ -21,44 +21,40 @@ option(CONFIG_BUILD_TEST "build the test programs" OFF)
 option(CONFIG_BUILD_CONVERT_TOOLS "build the test programs" OFF)
 option(CONFIG_BUILD_SERIALIZER "build the test programs" OFF)
 
-if( CONFIG_BUILD_CONVERT_TOOLS OR CONFIG_BUILD_SERIALIZER )
-	set( CONFIG_CAFFE_SERIALIZER ON )
-	set( CONFIG_ONNX_SERIALIZER ON )
-	set( CONFIG_MXNET_SERIALIZER ON )
-	set( CONFIG_TF_SERIALIZER ON )
-	set( CONFIG_TFLITE_SERIALIZER ON )
-	set( CONFIG_DARKNET_SERIALIZER ON )
-	set( CONFIG_SRC_TM_SERIALIZER ON )
+if(CONFIG_BUILD_CONVERT_TOOLS OR CONFIG_BUILD_SERIALIZER)
+    set(CONFIG_CAFFE_SERIALIZER ON)
+    set(CONFIG_ONNX_SERIALIZER ON)
+    set(CONFIG_MXNET_SERIALIZER ON)
+    set(CONFIG_TF_SERIALIZER ON)
+    set(CONFIG_TFLITE_SERIALIZER ON)
+    set(CONFIG_DARKNET_SERIALIZER ON)
+    set(CONFIG_SRC_TM_SERIALIZER ON)
+    set(CONFIG_NCNN_SERIALIZER ON)
 endif()
 
-if ( OPEN_ACL_OPENCL )
-	set( CONFIG_ACL_OPENCL ON )
+if(OPEN_ACL_OPENCL)
+    set(CONFIG_ACL_OPENCL ON)
 endif()
 
 if(CONFIG_BUILD_CONVERT_TOOLS OR CONFIG_BUILD_SERIALIZER)
-
-# if( PROTOBUF_LIB_PATH )
-# 	set(PROTOBUF_LIB "-L${PROTOBUF_LIB_PATH} -lprotobuf")
-# 	set(PROTOBUF_CFLAGS "-I${PROTOBUF_INCLUDE_PATH}")
-# else()
-
-# find_package(Protobuf 3.0.0)
-# if(PROTOBUF_FOUND)
-# 	set(PROTOBUF_LIB protobuf::libprotobuf)
-# 	set(PROTOBUF_CFLAGS "")
-# else()
-# 	message(FATAL_ERROR "can not find protobuf library")
-# endif()
-
-set(PROTOBUF_LIB protobuf::libprotobuf)
-set(PROTOBUF_CFLAGS "")
-
-# endif()
-
+    # if( PROTOBUF_LIB_PATH )
+    #     set(PROTOBUF_LIB "-L${PROTOBUF_LIB_PATH} -lprotobuf")
+    #     set(PROTOBUF_CFLAGS "-I${PROTOBUF_INCLUDE_PATH}")
+    # else()
+    #     find_package(Protobuf 3.0.0)
+    #     if(PROTOBUF_FOUND)
+    #         set(PROTOBUF_LIB ${Protobuf_LIBRARIES})
+    #         set(PROTOBUF_CFLAGS -I${Protobuf_INCLUDE_DIRS})
+    #     else()
+    #         message(FATAL_ERROR "can not find protobuf library")
+    #     endif()
+    # endif()
+    set(PROTOBUF_LIB protobuf::libprotobuf)
+    set(PROTOBUF_CFLAGS "")
 endif()
 
 if(TENGINE_IN_BIND)
-	set(CONFIG_TENGINE_ROOT ${CMAKE_SOURCE_DIR})
+    set(CONFIG_TENGINE_ROOT ${CMAKE_SOURCE_DIR})
 endif()
 
 if(NOT DEFINED CONFIG_TENGINE_ROOT)
@@ -74,7 +70,7 @@ endif()
 
 add_definitions(-Wall)
 add_definitions(-fPIC)
-add_definitions(-g)
+#add_definitions(-g)
 add_definitions(-funroll-loops)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-overloaded-virtual")
@@ -93,11 +89,10 @@ endif()
 add_subdirectory(tools)
 
 if(ANDROID AND (NOT TENGINE_IN_BIND))
-	ADD_CUSTOM_TARGET(BUILD_DONE ALL COMMAND "")
-	add_custom_command(TARGET BUILD_DONE
-		POST_BUILD
-		COMMAND bash android_install.sh
-		 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-		 )
+    ADD_CUSTOM_TARGET(BUILD_DONE ALL COMMAND "")
+    add_custom_command(TARGET BUILD_DONE
+        POST_BUILD
+        COMMAND bash android_install.sh
+         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+         )
 endif()
-

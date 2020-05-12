@@ -54,3 +54,8 @@ if(CONFIG_DARKNET_SERIALIZER)
     add_definitions(-DCONFIG_DARKNET_SERIALIZER=1)
     add_subdirectory(darknet)
 endif()
+
+if(CONFIG_NCNN_SERIALIZER)
+    add_definitions(-DCONFIG_NCNN_SERIALIZER=1)
+    add_subdirectory(ncnn)
+endif()

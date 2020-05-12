@@ -30,6 +30,8 @@
 #include <sys/time.h>
 #include "tengine_operations.h"
 #include "tengine_cpp_api.h"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/highgui/highgui.hpp"
 #include "common.hpp"
 
 static std::string gExcName{""};
@@ -44,13 +46,43 @@ struct Box
     float score;
 };
 
-void get_input_data_ssd(std::string& image_file, float* input_data, int img_h, int img_w)
+void get_input_data_cv(const char* image_file, float* input_data, int img_h, int img_w, const float* mean, float scale)
 {
-    float mean[3] = {127.5, 127.5, 127.5};
-    float scales[3] = {0.007843, 0.007843, 0.007843};
-    image img = imread(image_file.c_str(), img_w, img_h, mean, scales, CAFFE);    
-    memcpy(input_data, img.data, sizeof(float)*3*img_w*img_h);  
-    free_image(img);    
+    cv::Mat sample = cv::imread(image_file, -1);
+    if(sample.empty())
+    {
+        std::cerr << "Failed to read image file " << image_file << ".\n";
+        return;
+    }
+    cv::Mat img;
+    if(sample.channels() == 4)
+    {
+        cv::cvtColor(sample, img, cv::COLOR_BGRA2BGR);
+    }
+    else if(sample.channels() == 1)
+    {
+        cv::cvtColor(sample, img, cv::COLOR_GRAY2BGR);
+    }
+    else
+    {
+        img = sample;
+    }
+
+    cv::resize(img, img, cv::Size(img_h, img_w));
+    img.convertTo(img, CV_32FC3);
+    float* img_data = ( float* )img.data;
+    int hw = img_h * img_w;
+    for(int h = 0; h < img_h; h++)
+    {
+        for(int w = 0; w < img_w; w++)
+        {
+            for(int c = 0; c < 3; c++)
+            {
+                input_data[c * hw + h * img_w + w] = (*img_data - mean[c]) * scale;
+                img_data++;
+            }
+        }
+    }
 }
 
 void post_process_ssd(std::string& image_file, float threshold, float* outdata, int num)
@@ -60,10 +92,10 @@ void post_process_ssd(std::string& image_file, float threshold, float* outdata, 
                                  "dog",        "horse",     "motorbike", "person", "pottedplant", "sheep",
                                  "sofa",       "train",     "tvmonitor"};
 
-    image im = imread(image_file.c_str());
+    cv::Mat im = cv::imread(image_file.c_str());
 
-    int raw_h = im.h;
-    int raw_w = im.w;
+    int raw_h = im.rows;
+    int raw_w = im.cols;
     std::vector<Box> boxes;
     printf("detect result num: %d \n", num);
     for(int i = 0; i < num; i++)
@@ -83,20 +115,35 @@ void post_process_ssd(std::string& image_file, float threshold, float* outdata, 
         }
         outdata += 6;
     }
-    for(int i = 0; i < ( int )boxes.size(); i++)
+    for(int i = 0; i < (int )boxes.size(); i++)
     {
         Box box = boxes[i];
 
-        std::ostringstream score_str;
-        score_str << box.score * 100;
-        std::string labelstr = std::string(class_names[box.class_idx]) + " : " + score_str.str();
+        cv::rectangle(im, cv::Point(box.x0, box.y0), cv::Point(box.x1, box.y1), cv::Scalar(255, 0, 0));
 
-        put_label(im, labelstr.c_str(), 0.02, box.x0, box.y0, 255, 255, 125);
-        draw_box(im, box.x0, box.y0, box.x1, box.y1, 2, 125, 0, 125);
+        char text[256];
+        sprintf(text, "%s %.1f%%", class_names[box.class_idx], box.score * 100);
+
+        int baseLine = 0;
+        cv::Size label_size = cv::getTextSize(text, cv::FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
+
+        int x = box.x0;
+        int y = box.y0 - label_size.height - baseLine;
+        if (y < 0)
+            y = 0;
+        if (x + label_size.width > im.cols)
+            x = im.cols - label_size.width;
+
+        cv::rectangle(im, cv::Rect(cv::Point(x, y),
+                                      cv::Size(label_size.width, label_size.height + baseLine)),
+                      cv::Scalar(255, 255, 255), -1);
+
+        cv::putText(im, text, cv::Point(x, y + label_size.height),
+                    cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0));
     }
 
-    save_image(im, "tengine_example_out");
-    free_image(im);
+    cv::imwrite("tengine_example_out.jpg", im);
+
     std::cout << "======================================\n";
     std::cout << "[DETECTED IMAGE SAVED]:\t"
               << "Mobilenet_SSD"
@@ -168,6 +215,7 @@ int main(int argc, char* argv[])
     {
         return 1;
     }
+    
 
     /* load model */
     somenet.load_model(NULL, "tengine", model_file.c_str());
@@ -179,7 +227,7 @@ int main(int argc, char* argv[])
 
     float mean[3] = {127.5, 127.5, 127.5};
 
-    float scales = 0.007843;
+    float scale = 0.007843;
 
     int repeat_count = 1;
     const char* repeat = std::getenv("REPEAT_COUNT");
@@ -190,7 +238,7 @@ int main(int argc, char* argv[])
     /* prepare input data */
     input_tensor.create(img_w, img_h, 3);
 
-    get_input_data(image_file.c_str(), (float* )input_tensor.data, img_h, img_w, mean, scales);
+    get_input_data_cv(image_file.c_str(), (float* )input_tensor.data, img_h, img_w, mean, scale);
 
     /* forward */
     somenet.input_tensor(0, 0, input_tensor);
@@ -209,6 +257,7 @@ int main(int argc, char* argv[])
         min_time = std::min(min_time, mytime);
         max_time = std::max(max_time, mytime);
     }
+    // somenet.dump();
     std::cout << "--------------------------------------\n";
     std::cout << "\nRepeat " << repeat_count << " times, avg time per run is " << total_time / repeat_count << " ms\n" << "max time is " << max_time << " ms, min time is " << min_time << " ms\n";
 
